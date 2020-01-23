@@ -7,8 +7,11 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -19,8 +22,22 @@ public class Robot extends TimedRobot {
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
   //Motors
-  Talon leftFront = new Talon(RobotMap.leftFrontMotorID);
-  Talon rightFron = new Talon(RobotMap.rightFrontMotorID);
+  Talon rightFront = new Talon(RobotMap.RIGHT_FRONT_MOTOR_ID);
+  Talon rightBack = new Talon(RobotMap.RIGHT_BACK_MOTOR_ID);
+
+  Talon leftFront = new Talon(RobotMap.LEFT_FRONT_MOTOR_ID);
+  Talon leftBack = new Talon(RobotMap.LEFT_BACK_MOTOR_ID);
+
+  //Speed Controller Groups & differential drive object
+  SpeedControllerGroup left = new SpeedControllerGroup(rightFront, rightBack);
+  SpeedControllerGroup right = new SpeedControllerGroup(leftFront, leftBack);
+
+  DifferentialDrive dT = new DifferentialDrive(left, right);
+
+  //Joystick
+  Joystick driver = new Joystick(0);
+  double leftStickVal; //Assigned in teleopPeriodic
+  double rightStickVal; //Assigned in teleopPeriodic
 
   //four sims, standard pwm talon controllers
 
@@ -59,6 +76,12 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
+    //Assigns values because it needs to be routinely updated
+    leftStickVal = driver.getRawAxis(RobotMap.LEFT_AXIS_ID);
+    rightStickVal = driver.getRawAxis(RobotMap.RIGHT_AXIS_ID);
+
+    //Tank drive method call
+    dT.tankDrive(leftStickVal * RobotMap.DRIVE_SPEED_ID, rightStickVal * RobotMap.DRIVE_SPEED_ID);
   }
 
   @Override
