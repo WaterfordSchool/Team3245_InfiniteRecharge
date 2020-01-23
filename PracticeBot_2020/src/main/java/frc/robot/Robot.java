@@ -39,11 +39,6 @@ public class Robot extends TimedRobot {
   double leftStickVal; //Assigned in teleopPeriodic
   double rightStickVal; //Assigned in teleopPeriodic
 
-  //four sims, standard pwm talon controllers
-
-
-
-
   @Override
   public void robotInit() {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);

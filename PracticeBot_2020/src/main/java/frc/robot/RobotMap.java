@@ -1,4 +1,7 @@
-//Class contains all constants used in order to maintain cleanliness of code
+/*----------------------------------------------------------------------------*/
+/* Class contains all constants used in order to maintain cleanliness of code */
+/* In order to call a value use "RobotMap.NAME_OF_VALUE" without quotes       */
+/*----------------------------------------------------------------------------*/
 
 package frc.robot;
 
