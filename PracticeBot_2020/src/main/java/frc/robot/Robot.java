@@ -28,6 +28,9 @@ public class Robot extends TimedRobot {
   Talon leftFront = new Talon(RobotMap.LEFT_FRONT_MOTOR_ID);
   Talon leftBack = new Talon(RobotMap.LEFT_BACK_MOTOR_ID);
 
+  Talon flywheelMotor = new Talon(RobotMap.FLYWHEEL_MOTOR_ID);
+  Talon indexMotor = new Talon(RobotMap.INDEX_MOTOR_ID);
+
   //Speed Controller Groups & differential drive object
   SpeedControllerGroup left = new SpeedControllerGroup(rightFront, rightBack);
   SpeedControllerGroup right = new SpeedControllerGroup(leftFront, leftBack);
@@ -66,6 +69,24 @@ public class Robot extends TimedRobot {
       default:
         // Put default auto code here
         break;
+    }
+  }
+
+  public void index(){
+    if(driver.getRawButton(RobotMap.INDEX_BUTTON_ID)){
+      indexMotor.set(RobotMap.INDEX_SPEED_ID);
+    }
+    else{
+      indexMotor.set(0.0);
+    }
+  }
+
+  public void flyWheel(){
+    if(driver.getRawButton(RobotMap.FLYWHEEL_BUTTON_ID)){
+      flywheelMotor.set(RobotMap.FLYWHEEL_SPEED_ID);
+    }
+    else{
+      flywheelMotor.set(0.0);
     }
   }
 
