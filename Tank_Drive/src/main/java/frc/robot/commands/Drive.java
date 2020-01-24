@@ -7,9 +7,12 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class Drive extends CommandBase {
+  double speed;
+  Joystick d = new Joystick(0);
   /**
    * Creates a new Drive.
    */
@@ -20,6 +23,7 @@ public class Drive extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
