@@ -38,7 +38,8 @@ public class Robot extends TimedRobot {
   DifferentialDrive dT = new DifferentialDrive(left, right);
 
   //Joystick
-  Joystick driver = new Joystick(0);
+  Joystick driver = new Joystick(RobotMap.JOYSTICK_DRIVER_PORT_ID); //driver joystick
+  Joystick operator = new Joystick(1); //operator joystick
   double leftStickVal; //Assigned in teleopPeriodic
   double rightStickVal; //Assigned in teleopPeriodic
 
@@ -73,7 +74,7 @@ public class Robot extends TimedRobot {
   }
 
   public void index(){
-    if(driver.getRawButton(RobotMap.INDEX_BUTTON_ID)){
+    if(operator.getRawButton(RobotMap.INDEX_BUTTON_ID)){
       indexMotor.set(RobotMap.INDEX_SPEED_ID);
     }
     else{
@@ -82,7 +83,7 @@ public class Robot extends TimedRobot {
   }
 
   public void flyWheel(){
-    if(driver.getRawButton(RobotMap.FLYWHEEL_BUTTON_ID)){
+    if(operator.getRawButton(RobotMap.FLYWHEEL_BUTTON_ID)){
       flywheelMotor.set(RobotMap.FLYWHEEL_SPEED_ID);
     }
     else{
