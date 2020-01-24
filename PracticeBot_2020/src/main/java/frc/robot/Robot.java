@@ -98,6 +98,9 @@ public class Robot extends TimedRobot {
 
     //Tank drive method call
     dT.tankDrive(leftStickVal * RobotMap.DRIVE_SPEED_ID, rightStickVal * RobotMap.DRIVE_SPEED_ID);
+
+    index();
+    flyWheel();
   }
 
   @Override
