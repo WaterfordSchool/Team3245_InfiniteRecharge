@@ -8,14 +8,14 @@ package frc.robot;
 public class RobotMap {
 
     //Motor ID Constants
-    public static final int LEFT_FRONT_MOTOR_ID = 0;
+    public static final int LEFT_FRONT_MOTOR_ID = 3;
     public static final int RIGHT_FRONT_MOTOR_ID = 0;
     
     public static final int LEFT_BACK_MOTOR_ID = 0;
     public static final int RIGHT_BACK_MOTOR_ID = 0;
 
-    public static final int FLYWHEEL_MOTOR_ID = 0;
-    public static final int INDEX_MOTOR_ID = 0;
+    public static final int FLYWHEEL_MOTOR_ID = 5;
+    public static final int INDEX_MOTOR_ID = 7;
 
     //Speed Constant
     public static final double DRIVE_SPEED_ID = 0.8;

@@ -22,24 +22,24 @@ public class Robot extends TimedRobot {
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
   //Motors
-  Talon rightFront = new Talon(RobotMap.RIGHT_FRONT_MOTOR_ID);
-  Talon rightBack = new Talon(RobotMap.RIGHT_BACK_MOTOR_ID);
+  Talon right = new Talon(RobotMap.RIGHT_FRONT_MOTOR_ID);
+  //Talon rightBack = new Talon(RobotMap.RIGHT_BACK_MOTOR_ID);
 
-  Talon leftFront = new Talon(RobotMap.LEFT_FRONT_MOTOR_ID);
-  Talon leftBack = new Talon(RobotMap.LEFT_BACK_MOTOR_ID);
+  Talon left = new Talon(RobotMap.LEFT_FRONT_MOTOR_ID);
+  //Talon leftBack = new Talon(RobotMap.LEFT_BACK_MOTOR_ID);
 
   Talon flywheelMotor = new Talon(RobotMap.FLYWHEEL_MOTOR_ID);
   Talon indexMotor = new Talon(RobotMap.INDEX_MOTOR_ID);
-
+/**
   //Speed Controller Groups & differential drive object
   SpeedControllerGroup left = new SpeedControllerGroup(rightFront, rightBack);
   SpeedControllerGroup right = new SpeedControllerGroup(leftFront, leftBack);
-
+*/
   DifferentialDrive dT = new DifferentialDrive(left, right);
 
   //Joystick
   Joystick driver = new Joystick(RobotMap.JOYSTICK_DRIVER_PORT_ID); //driver joystick
-  Joystick operator = new Joystick(1); //operator joystick
+  Joystick operator = new Joystick(RobotMap.JOYSTICK_OPERATOR_PORT_ID); //operator joystick
   double leftStickVal; //Assigned in teleopPeriodic
   double rightStickVal; //Assigned in teleopPeriodic
 
