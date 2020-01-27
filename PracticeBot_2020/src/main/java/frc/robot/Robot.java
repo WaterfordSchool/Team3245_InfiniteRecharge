@@ -98,7 +98,7 @@ public class Robot extends TimedRobot {
     rightStickVal = driver.getRawAxis(RobotMap.RIGHT_AXIS_ID);
 
     //Tank drive method call
-    dT.tankDrive(leftStickVal * RobotMap.DRIVE_SPEED_ID, rightStickVal * RobotMap.DRIVE_SPEED_ID);
+    dT.tankDrive(-leftStickVal * RobotMap.DRIVE_SPEED_ID, -rightStickVal * RobotMap.DRIVE_SPEED_ID);
 
     index();
     flyWheel();
