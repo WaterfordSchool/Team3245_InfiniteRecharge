@@ -22,10 +22,10 @@ public class Robot extends TimedRobot {
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
   //Motors
-  Talon right = new Talon(RobotMap.RIGHT_FRONT_MOTOR_ID);
+  Talon right = new Talon(RobotMap.RIGHT_ID);
   //Talon rightBack = new Talon(RobotMap.RIGHT_BACK_MOTOR_ID);
 
-  Talon left = new Talon(RobotMap.LEFT_FRONT_MOTOR_ID);
+  Talon left = new Talon(RobotMap.LEFT_ID);
   //Talon leftBack = new Talon(RobotMap.LEFT_BACK_MOTOR_ID);
 
   Talon flywheelMotor = new Talon(RobotMap.FLYWHEEL_MOTOR_ID);
