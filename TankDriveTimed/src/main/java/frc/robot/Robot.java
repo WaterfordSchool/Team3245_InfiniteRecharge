@@ -8,6 +8,7 @@
 package frc.robot;
 
 import com.revrobotics.SparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Spark;
@@ -16,6 +17,7 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import com.revrobotics.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -29,17 +31,23 @@ public class Robot extends TimedRobot {
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
    */
-  Talon r0 = new Talon(22);
-  Talon r1 = new Talon(23);
-  Talon r2 = new Talon(24);
-  Spark l0 = new Spark(20);
-  Spark l1 = new Spark(21);
-  Spark l2 = new Spark(25);
-  SpeedControllerGroup r = new SpeedControllerGroup(r0, r1, r2);
-  SpeedControllerGroup l = new SpeedControllerGroup(l0, l1, l2);
+
+  //Left
+  CANSparkMax l1 = new CANSparkMax(20, MotorType.kBrushless);
+  CANSparkMax l2 = new CANSparkMax(21, MotorType.kBrushless);
+  CANSparkMax l3 = new CANSparkMax(25, MotorType.kBrushless);
+
+  //Right
+  CANSparkMax r1 = new CANSparkMax(22, MotorType.kBrushless);
+  CANSparkMax r2 = new CANSparkMax(23, MotorType.kBrushless);
+  CANSparkMax r3 = new CANSparkMax(24, MotorType.kBrushless);
+
+  SpeedControllerGroup r = new SpeedControllerGroup(r1, r2, r3);
+  SpeedControllerGroup l = new SpeedControllerGroup(l1, l2, l3);
   DifferentialDrive dT = new DifferentialDrive(l, r);
   Joystick driver = new Joystick(0);
   double speed;
+  
   @Override
   public void robotInit() {
     speed = SmartDashboard.getNumber("speed", 0.8);
@@ -59,7 +67,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    dT.tankDrive(speed*driver.getRawAxis(1), -speed*driver.getRawAxis(3));
+    dT.tankDrive(-speed*driver.getRawAxis(1), -speed*driver.getRawAxis(3));
     //dT.arcadeDrive(speed*Math.sqrt(driver.getRawAxis(1)*driver.getRawAxis(1)+driver.getRawAxis(0)*driver.getRawAxis(0)), Math.atan2(driver.getRawAxis(3), driver.getRawAxis(2)));
   }
 

@@ -19,7 +19,7 @@ public class RobotMap {
 
     //Speed Constant
     public static final double DRIVE_SPEED_ID = 0.8;
-    public static final double INDEX_SPEED_ID = 0.5;
+    public static final double INDEX_SPEED_ID = 0.8;
     public static final double FLYWHEEL_SPEED_ID = 0.9;
 
     //Joystick Constants
