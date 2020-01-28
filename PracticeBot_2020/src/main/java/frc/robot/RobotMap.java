@@ -26,4 +26,8 @@ public class RobotMap {
     public static final int RIGHT_AXIS_ID = 3;
     public static final int INDEX_BUTTON_ID = 5;
     public static final int FLYWHEEL_BUTTON_ID = 6;
+
+    //Sensor Values
+    public static final double GYRO_SETPOINT = 0.0;
+    public static final double GYRO_TURNING_CONSTANT = 0.005;
 }

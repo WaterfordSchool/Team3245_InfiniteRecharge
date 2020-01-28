@@ -7,11 +7,13 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -37,13 +39,16 @@ public class Robot extends TimedRobot {
   double rightStickVal; //Assigned in teleopPeriodic
 
   //Sensors
-  
+  ADXRS450_Gyro gyro = new ADXRS450_Gyro(); //check SPI, default is CS0, SPI.Port.kMXP
 
   @Override
   public void robotInit() {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
+
+    gyro.calibrate(); //sets gyro's current postition to 0
+
   }
 
   @Override
@@ -54,6 +59,11 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     m_autoSelected = m_chooser.getSelected();
     System.out.println("Auto selected: " + m_autoSelected);
+
+    gyro.calibrate();
+
+
+
   }
 
   @Override
@@ -93,8 +103,14 @@ public class Robot extends TimedRobot {
     leftStickVal = driver.getRawAxis(RobotMap.LEFT_AXIS_ID);
     rightStickVal = driver.getRawAxis(RobotMap.RIGHT_AXIS_ID);
 
+    //Sets Gyro Turning Value
+    double turnVal = (RobotMap.GYRO_SETPOINT - gyro.getAngle()) * RobotMap.GYRO_TURNING_CONSTANT;
+    turnVal = Math.copySign(turnVal, leftStickVal);
+    turnVal = Math.copySign(turnVal, rightStickVal);
+    
     //Tank drive method call
     dT.tankDrive(-leftStickVal * RobotMap.DRIVE_SPEED_ID, -rightStickVal * RobotMap.DRIVE_SPEED_ID);
+    //dT.arcadeDrive(driver.getY(), turningVal);
 
     index();
     flyWheel();
