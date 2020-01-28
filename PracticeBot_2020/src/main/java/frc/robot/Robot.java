@@ -23,18 +23,11 @@ public class Robot extends TimedRobot {
 
   //Motors
   Talon right = new Talon(RobotMap.RIGHT_ID);
-  //Talon rightBack = new Talon(RobotMap.RIGHT_BACK_MOTOR_ID);
-
   Talon left = new Talon(RobotMap.LEFT_ID);
-  //Talon leftBack = new Talon(RobotMap.LEFT_BACK_MOTOR_ID);
 
   Talon flywheelMotor = new Talon(RobotMap.FLYWHEEL_MOTOR_ID);
   Talon indexMotor = new Talon(RobotMap.INDEX_MOTOR_ID);
-/**
-  //Speed Controller Groups & differential drive object
-  SpeedControllerGroup left = new SpeedControllerGroup(rightFront, rightBack);
-  SpeedControllerGroup right = new SpeedControllerGroup(leftFront, leftBack);
-*/
+
   DifferentialDrive dT = new DifferentialDrive(left, right);
 
   //Joystick
@@ -42,6 +35,9 @@ public class Robot extends TimedRobot {
   Joystick operator = new Joystick(RobotMap.JOYSTICK_OPERATOR_PORT_ID); //operator joystick
   double leftStickVal; //Assigned in teleopPeriodic
   double rightStickVal; //Assigned in teleopPeriodic
+
+  //Sensors
+  
 
   @Override
   public void robotInit() {
