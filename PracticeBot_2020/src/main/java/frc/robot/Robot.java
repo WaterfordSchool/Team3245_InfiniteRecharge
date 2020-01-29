@@ -18,11 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends TimedRobot {
-  private static final String kDefaultAuto = "Default";
-  private static final String kCustomAuto = "My Auto";
-  private String m_autoSelected;
-  private final SendableChooser<String> m_chooser = new SendableChooser<>();
-
+  
   //Motors
   Talon right = new Talon(RobotMap.RIGHT_ID);
   Talon left = new Talon(RobotMap.LEFT_ID);
@@ -43,9 +39,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
-    m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
-    m_chooser.addOption("My Auto", kCustomAuto);
-    SmartDashboard.putData("Auto choices", m_chooser);
 
     gyro.calibrate(); //sets gyro's current postition to 0
 
@@ -57,26 +50,14 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    m_autoSelected = m_chooser.getSelected();
-    System.out.println("Auto selected: " + m_autoSelected);
-
+    
     gyro.calibrate();
-
-
 
   }
 
   @Override
   public void autonomousPeriodic() {
-    switch (m_autoSelected) {
-      case kCustomAuto:
-        // Put custom auto code here
-        break;
-      case kDefaultAuto:
-      default:
-        // Put default auto code here
-        break;
-    }
+    
   }
 
   public void index(){
@@ -116,7 +97,23 @@ public class Robot extends TimedRobot {
     flyWheel();
   }
 
+  //Test AutoRoutine
+  public void autoRoutine() {
+    //resets gyro to 0
+    gyro.calibrate();
+    double turningVal = (RobotMap.GYRO_SETPOINT - gyro.getAngle()) * RobotMap.GYRO_TURNING_CONSTANT;
+    double startAngle = gyro.getAngle();
+
+    //turn right 45 degrees
+    //left off here decreasing turning value as the gyro gets closer to 45 degrees
+    while (gyro.getAngle() < 45){
+      right.set(Math.pow(45 - startAngle / 45, 3));
+      left.set(Math.pow(45 - startAngle / 45, 3));
+    }
+  }
+
   @Override
   public void testPeriodic() {
   }
+
 }
