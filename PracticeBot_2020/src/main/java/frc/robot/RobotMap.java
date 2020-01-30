@@ -18,6 +18,7 @@ public class RobotMap {
     public static final double DRIVE_SPEED_ID = 0.8;
     public static final double INDEX_SPEED_ID = 0.8;
     public static final double FLYWHEEL_SPEED_ID = 0.9;
+    public static final double FLYWHEEL_SLOW_SPEED_ID = 0.5;
 
     //Joystick Constants
     public static final int JOYSTICK_DRIVER_PORT_ID = 0;
@@ -26,6 +27,7 @@ public class RobotMap {
     public static final int RIGHT_AXIS_ID = 3;
     public static final int INDEX_BUTTON_ID = 5;
     public static final int FLYWHEEL_BUTTON_ID = 6;
+    public static final int FLYWHEEL_SLOW_BUTTON_ID = 7;
 
     //Sensor Values
     public static final double GYRO_SETPOINT = 0.0;
