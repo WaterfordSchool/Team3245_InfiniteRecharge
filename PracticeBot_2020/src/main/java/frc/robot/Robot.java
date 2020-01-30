@@ -57,7 +57,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousPeriodic() {
-    
+    autoRoutine();
   }
 
   public void index(){
@@ -73,6 +73,9 @@ public class Robot extends TimedRobot {
     if(operator.getRawButton(RobotMap.FLYWHEEL_BUTTON_ID)){
       flywheelMotor.set(RobotMap.FLYWHEEL_SPEED_ID);
     }
+    if (operator.getRawButton(RobotMap.FLYWHEEL_SLOW_BUTTON_ID)){
+      flywheelMotor.set(RobotMap.FLYWHEEL_SLOW_SPEED_ID);
+    }
     else{
       flywheelMotor.set(0.0);
     }
@@ -84,11 +87,12 @@ public class Robot extends TimedRobot {
     leftStickVal = driver.getRawAxis(RobotMap.LEFT_AXIS_ID);
     rightStickVal = driver.getRawAxis(RobotMap.RIGHT_AXIS_ID);
 
-    //Sets Gyro Turning Value
-    double turnVal = (RobotMap.GYRO_SETPOINT - gyro.getAngle()) * RobotMap.GYRO_TURNING_CONSTANT;
-    turnVal = Math.copySign(turnVal, leftStickVal);
-    turnVal = Math.copySign(turnVal, rightStickVal);
-    
+    /*Sets Gyro Turning Value 
+    //double turnVal = (RobotMap.GYRO_SETPOINT - gyro.getAngle()) * RobotMap.GYRO_TURNING_CONSTANT;
+    //turnVal = Math.copySign(turnVal, leftStickVal);
+    //turnVal = Math.copySign(turnVal, rightStickVal);
+    */
+
     //Tank drive method call
     dT.tankDrive(-leftStickVal * RobotMap.DRIVE_SPEED_ID, -rightStickVal * RobotMap.DRIVE_SPEED_ID);
     //dT.arcadeDrive(driver.getY(), turningVal);
@@ -101,8 +105,8 @@ public class Robot extends TimedRobot {
   public void autoRoutine() {
     //resets gyro to 0
     gyro.calibrate();
-    double turningVal = (RobotMap.GYRO_SETPOINT - gyro.getAngle()) * RobotMap.GYRO_TURNING_CONSTANT;
-    double startAngle = gyro.getAngle();
+    //double turningVal = (RobotMap.GYRO_SETPOINT - gyro.getAngle()) * RobotMap.GYRO_TURNING_CONSTANT;
+    double startAngle = gyro.getAngle(); //should be 0 intially
 
     //turn right 45 degrees
     //left off here decreasing turning value as the gyro gets closer to 45 degrees
