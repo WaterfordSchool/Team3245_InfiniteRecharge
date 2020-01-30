@@ -88,9 +88,9 @@ public class Robot extends TimedRobot {
     rightStickVal = driver.getRawAxis(RobotMap.RIGHT_AXIS_ID);
 
     /*Sets Gyro Turning Value 
-    //double turnVal = (RobotMap.GYRO_SETPOINT - gyro.getAngle()) * RobotMap.GYRO_TURNING_CONSTANT;
-    //turnVal = Math.copySign(turnVal, leftStickVal);
-    //turnVal = Math.copySign(turnVal, rightStickVal);
+    *double turnVal = (RobotMap.GYRO_SETPOINT - gyro.getAngle()) * RobotMap.GYRO_TURNING_CONSTANT;
+    *turnVal = Math.copySign(turnVal, leftStickVal);
+    *turnVal = Math.copySign(turnVal, rightStickVal);
     */
 
     //Tank drive method call
@@ -99,6 +99,9 @@ public class Robot extends TimedRobot {
 
     index();
     flyWheel();
+
+    //SmartDashboard code
+    SmartDashboard.putNumber("Current Encoder Value: ", gyro.getAngle());
   }
 
   //Test AutoRoutine
