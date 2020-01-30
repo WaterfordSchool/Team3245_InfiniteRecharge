@@ -92,7 +92,7 @@ public class Robot extends TimedRobot {
   }
 
   public void autoRoutine(){
-
+    gyro.calibrate();
     double startAngle = gyro.getAngle();
 
     while (gyro.getAngle() < 45){
