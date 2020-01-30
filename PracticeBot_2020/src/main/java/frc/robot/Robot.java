@@ -101,7 +101,7 @@ public class Robot extends TimedRobot {
     flyWheel();
 
     //SmartDashboard code
-    SmartDashboard.putNumber("Current Encoder Value: ", gyro.getAngle());
+    SmartDashboard.putNumber("Gyro Value: ", gyro.getAngle());
   }
 
   //Test AutoRoutine

@@ -10,6 +10,7 @@ package frc.robot;
 import com.revrobotics.SparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -45,12 +46,17 @@ public class Robot extends TimedRobot {
   SpeedControllerGroup r = new SpeedControllerGroup(r1, r2, r3);
   SpeedControllerGroup l = new SpeedControllerGroup(l1, l2, l3);
   DifferentialDrive dT = new DifferentialDrive(l, r);
+
+  //Joystick
   Joystick driver = new Joystick(0);
   double speed;
-  
+  //Gyro
+  ADXRS450_Gyro gyro = new ADXRS450_Gyro();
+
   @Override
   public void robotInit() {
     speed = SmartDashboard.getNumber("speed", 0.8);
+    gyro.calibrate();
   }
 
   @Override
@@ -67,8 +73,14 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
+    //Gyro Code
+    
+    //Drive Code
     dT.tankDrive(-speed*driver.getRawAxis(1), -speed*driver.getRawAxis(3));
     //dT.arcadeDrive(speed*Math.sqrt(driver.getRawAxis(1)*driver.getRawAxis(1)+driver.getRawAxis(0)*driver.getRawAxis(0)), Math.atan2(driver.getRawAxis(3), driver.getRawAxis(2)));
+    
+    //SmartDashboard
+    SmartDashboard.putNumber("Gyro Value: ", gyro.getAngle());
   }
 
   @Override
@@ -77,6 +89,16 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testPeriodic() {
+  }
+
+  public void autoRoutine(){
+
+    double startAngle = gyro.getAngle();
+
+    while (gyro.getAngle() < 45){
+      r.set(Math.pow(45 - startAngle / 45, 3));
+      l.set(Math.pow(45 - startAngle / 45, 3));
+    }
   }
 
 }
