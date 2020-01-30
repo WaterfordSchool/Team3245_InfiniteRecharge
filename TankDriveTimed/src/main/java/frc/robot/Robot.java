@@ -65,6 +65,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousPeriodic() {
+    autoRoutine();
+    SmartDashboard.putNumber("Gyro Value: ", gyro.getAngle());
   }
 
   @Override
@@ -73,14 +75,12 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    //Gyro Code
-    
     //Drive Code
     dT.tankDrive(-speed*driver.getRawAxis(1), -speed*driver.getRawAxis(3));
     //dT.arcadeDrive(speed*Math.sqrt(driver.getRawAxis(1)*driver.getRawAxis(1)+driver.getRawAxis(0)*driver.getRawAxis(0)), Math.atan2(driver.getRawAxis(3), driver.getRawAxis(2)));
     
     //SmartDashboard
-    SmartDashboard.putNumber("Gyro Value: ", gyro.getAngle());
+    SmartDashboard.putNumber("Gyro Value: ", gyro.getAngle()); //just to test if we can recieve values from it
   }
 
   @Override
