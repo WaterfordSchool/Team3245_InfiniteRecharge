@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -34,7 +35,8 @@ public class Robot extends TimedRobot {
   double rightStickVal; //Assigned in teleopPeriodic
 
   //Sensors
-  ADXRS450_Gyro gyro = new ADXRS450_Gyro(); //check SPI, default is CS0, SPI.Port.kMXP
+  private static final SPI.Port kGyroPort = SPI.Port.kOnboardCS0;
+  ADXRS450_Gyro gyro = new ADXRS450_Gyro(kGyroPort); //check SPI, default is CS0, SPI.Port.kMXP
 
   @Override
   public void robotInit() {
@@ -50,13 +52,15 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     
-    gyro.calibrate();
+    //gyro.calibrate();
 
   }
 
   @Override
   public void autonomousPeriodic() {
     autoRoutine();
+    //SmartDashboard.putNumber("Gyro Value: ", gyro.getAngle());
+
   }
 
   public void index(){
@@ -100,22 +104,29 @@ public class Robot extends TimedRobot {
     flyWheel();
 
     //SmartDashboard code
-    SmartDashboard.putNumber("Gyro Value: ", gyro.getAngle());
+    //SmartDashboard.putNumber("Gyro Value: ", gyro.getAngle());
   }
 
   //Test AutoRoutine
   public void autoRoutine() {
     //resets gyro to 0
-    gyro.calibrate();
     //double turningVal = (RobotMap.GYRO_SETPOINT - gyro.getAngle()) * RobotMap.GYRO_TURNING_CONSTANT;
-    double startAngle = gyro.getAngle(); //should be 0 intially
+   // double startAngle = gyro.getAngle(); //should be 0 intially
 
     //turn right 45 degrees
     //left off here decreasing turning value as the gyro gets closer to 45 degrees
-    while (gyro.getAngle() < 45){
-      right.set(Math.pow(45 - startAngle / 45, 3));
-      left.set(Math.pow(45 - startAngle / 45, 3));
+    /*if (gyro.getAngle() < 45){
+      //right.set(Math.pow(45 - startAngle / -45, 3));
+      //left.set(Math.pow(45 - startAngle / 45, 3));
+      right.set(-0.3);
+      left.set(0.3);
     }
+    else{
+      right.set(0.0);
+      left.set(0.0);
+    }
+    */
+    SmartDashboard.putNumber("Gyro Value: ", gyro.getAngle());
   }
 
   @Override
