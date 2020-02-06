@@ -9,6 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -40,7 +41,9 @@ public class Robot extends TimedRobot {
   //private static final double kVoltsPerDegreePerSecond = 0.0120;
   //private static final SPI.Port kGyroPort = SPI.Port.kOnboardCS0;
   private static final double kAngleSetpoint = 0.0;
-  private static final double kP = 0.005; // propotional turning constant
+  private static final double kP = 1.0/180.0; // propotional turning constant
+
+  PIDController pidLoop = new PIDController(1, 0, 0);
 
   @Override
   public void robotInit() {
@@ -79,6 +82,10 @@ public class Robot extends TimedRobot {
     else{
       indexMotor.set(0.0);
     }
+  }
+
+  public void turnTo(double angel, double speedForward){
+    dT.arcadeDrive(speedForward, (angel-gyro.getAngle())/180);
   }
 
   public void flyWheel(){
@@ -138,8 +145,9 @@ public class Robot extends TimedRobot {
 
     gyro.reset();
     counter.reset();
+    double initialValue = gyro.getAngle()/180.0;
     while (counter.get()<20){
-      double turningValue = (kAngleSetpoint - gyro.getAngle()) * kP;
+      double turningValue = initialValue-(kAngleSetpoint - gyro.getAngle()) * kP;
       // Invert the direction of the turn if we are going backwards
       turningValue = Math.copySign(turningValue, 1);
       dT.arcadeDrive(0.4, turningValue);
