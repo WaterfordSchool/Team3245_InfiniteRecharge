@@ -56,9 +56,10 @@ public class Robot extends TimedRobot {
     //autoRoutine();
     //gyroValue+= Math.ceil(gyro.getAngle()*100-2)/100;
     //gyroRateRate= Math.abs(gyroRate - gyro.getRate());        
-    //SmartDashboard.putNumber("heading", gyro.getAngle());
+    SmartDashboard.putNumber("heading", gyro.getAngle());
     //SmartDashboard.putNumber("gyro rate change", gyroRateRate);
     //gyroRate = gyro.getRate();
+    
   }
 
   @Override
@@ -123,12 +124,14 @@ public class Robot extends TimedRobot {
       flywheelMotor.set(RobotMap.FLYWHEEL_SLOW_SPEED_ID);
       right.set(0.0);
       left.set(0.0);
+      SmartDashboard.putNumber("Counter: ", counter.get());
     }
 
     counter.reset();
     while(counter.get()<4.0){
       indexMotor.set(0.0);
       flywheelMotor.set(0.0);
+      SmartDashboard.putNumber("Counter: ", counter.get());
       //turn right 45 degrees
       if (gyro.getAngle() < 90){
         //right.set(Math.pow(45 - startAngle / -45, 3));
@@ -145,18 +148,19 @@ public class Robot extends TimedRobot {
 
     gyro.reset();
     counter.reset();
-    double initialValue = gyro.getAngle()/180.0;
+    double initialValue = gyro.getAngle();
     while (counter.get()<20){
-      double turningValue = initialValue-(kAngleSetpoint - gyro.getAngle()) * kP;
+      SmartDashboard.putNumber("Counter: ", counter.get());
+      double turningValue = initialValue-(kAngleSetpoint - gyro.getAngle());
       // Invert the direction of the turn if we are going backwards
       turningValue = Math.copySign(turningValue, 1);
       dT.arcadeDrive(0.4, turningValue);
-      SmartDashboard.putNumber("heading", gyro.getAngle());
       SmartDashboard.putNumber("turning value", -turningValue);
     }
     
     counter.reset();
     while (counter.get()<1.0){
+      SmartDashboard.putNumber("Counter: ", counter.get());
       indexMotor.set(0.0);
       flywheelMotor.set(0.0);
       right.set(0.0);
@@ -169,8 +173,7 @@ public class Robot extends TimedRobot {
     //double startAngle = gyro.getAngle(); //should be 0 intially
     
     //Print values to SmartDashboard
-    SmartDashboard.putNumber("Gyro Value: ", gyro.getAngle());
-    SmartDashboard.putNumber("Counter: ", counter.get());
+
     //SmartDashboard.putNumber("gyro rate", gyro.getRate());
 
     //Print values to RioLog
