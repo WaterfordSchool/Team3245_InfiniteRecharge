@@ -187,11 +187,12 @@ public class Robot extends TimedRobot {
     //System.out.println(gyro.getAngle());
     //System.out.println("rate"+gyro.getRate());
   }
-
+  double testSped;
+  double testAngel;
   @Override
   public void testPeriodic() {
     while (counter.get()<10){
-      turnTo(0, 0.8);
+      turnTo(testAngel, testSped);
     }
   }
 
@@ -202,6 +203,9 @@ public class Robot extends TimedRobot {
     pidLoop.setP(SmartDashboard.getNumber("Parallel"   , p));
     pidLoop.setI(SmartDashboard.getNumber("Integral"   , i));
     pidLoop.setD(SmartDashboard.getNumber("Derivative" , d));
+
+    testSped =   SmartDashboard.getNumber("test speed", 0.5);
+    testAngel=   SmartDashboard.getNumber("test angle (degrees)", 0);
     counter.reset();
     counter.start();
   }
