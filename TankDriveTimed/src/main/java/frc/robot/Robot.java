@@ -49,6 +49,8 @@ public class Robot extends TimedRobot {
   double speed;
   //Gyro
   ADXRS450_Gyro gyro = new ADXRS450_Gyro();
+  //Encoder(s)
+  CANEncoder r1Encoder = new CANEncoder(r1);
 
   @Override
   public void robotInit() {
@@ -78,6 +80,7 @@ public class Robot extends TimedRobot {
     
     //SmartDashboard
     SmartDashboard.putNumber("Gyro Value: ", gyro.getAngle()); //just to test if we can recieve values from it
+    SmartDashboard.putNumber("Current Encoder Value", r1Encoder.getPosition());
   }
 
   @Override
