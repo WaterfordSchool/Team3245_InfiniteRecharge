@@ -58,7 +58,7 @@ public class Robot extends TimedRobot {
   //Timer
   Timer timer = new Timer();
   double autoStartTime;
-  double timeElapsed;
+  double timeStart;
   double currentTime;
 
   @Override
@@ -110,11 +110,11 @@ public class Robot extends TimedRobot {
   */
 
   //Floor Loading Methods
-  public void armDown(){
-    timeElapsed = currentTime - autoStartTime;
+  public void armDown(){ //Method needs to be checked, definite errors
+    timeStart = currentTime - autoStartTime;
     boolean isDown = true;
     if(driver.getRawButton(RobotMap.DRIVER_ARM_BUTTON)){
-      while(timeElapsed < 3){
+      while(currentTime-timeStart < 3){
         if(isDown){
           arm.set(RobotMap.ARM_SPEED);
         }
