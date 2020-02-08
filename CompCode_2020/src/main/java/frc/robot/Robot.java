@@ -86,6 +86,7 @@ public class Robot extends TimedRobot {
     indexAgitator();
     flywheel();
     deployClimber();
+    slowButton();
   }
 
   @Override
@@ -165,6 +166,13 @@ public class Robot extends TimedRobot {
    if(operator.getRawButton(RobotMap.OPERATOR_CLIMBER_DOWN_BUTTON)){
       climbLeft.set(-RobotMap.CLIMB_SPEED);
       climbRight.set(-RobotMap.CLIMB_SPEED);
+   }
+ }
+
+ //Slow Button
+ public void slowButton(){
+   if(driver.getRawButton(RobotMap.DRIVER_SLOW_BUTTON_1) && driver.getRawButton(RobotMap.DRIVER_SLOW_BUTTON_2)){
+    dT.tankDrive(driver.getRawAxis(RobotMap.DRIVER_LEFT_AXIS) * 0.5, driver.getRawAxis(RobotMap.DRIVER_RIGHT_AXIS) * 0.5);
    }
  }
 }
