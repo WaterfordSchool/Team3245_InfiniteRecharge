@@ -48,12 +48,12 @@ public class Robot extends TimedRobot {
   double t = 0.05;
   PIDController pidLoop = new PIDController(p, i, d, t);
 
+  double jyro;
 
   @Override
   public void robotInit() {
     gyro.calibrate();  //calibrates gyro on robot start
     gyro.reset();  //sets gyro's current postition to 0    
-
   }
 
   @Override
@@ -64,6 +64,9 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("heading", gyro.getAngle());
     //SmartDashboard.putNumber("gyro rate change", gyroRateRate);
     //gyroRate = gyro.getRate();
+    jyro = gyro.getAngle();
+    kP /= 22.5;
+
   }
 
   @Override
@@ -71,13 +74,11 @@ public class Robot extends TimedRobot {
     counter.reset();
     counter.start();
     gyro.reset();
-    kP /= SmartDashboard.getNumber("turn Reduction value", 180);
+    autoRoutine();
   }
 
   @Override
   public void autonomousPeriodic() {
-    autoRoutine();
-
   }
 
   public void index(){
@@ -90,7 +91,7 @@ public class Robot extends TimedRobot {
   }
 
   public void turnTo(final double angel, final double speedForward) {
-    pidLoop.setSetpoint(angel);
+    pidLoop.setSetpoint(jyro);
     pidLoop.setTolerance(0.5, 1);
     double turn = pidLoop.getPositionError()*kP;
     dT.arcadeDrive(speedForward, turn);
@@ -191,9 +192,10 @@ public class Robot extends TimedRobot {
   double testAngel;
   @Override
   public void testPeriodic() {
-    while (counter.get()<10){
-      turnTo(testAngel, testSped);
+    if (counter.get()==20){
+      testSped = 0;
     }
+    turnTo(testAngel, testSped);
   }
 
   public void testInit(){
