@@ -7,7 +7,6 @@ package frc.robot;
 
 public class RobotMap {
 
-    //Motor ID Constants
     //Right
     public static final int R1 = 22;
     public static final int R2 = 23;
@@ -22,9 +21,24 @@ public class RobotMap {
     public static final int INDEX_ID = 7;
     public static final int FLYWHEEL_ID = 5;
 
+    //Floor Loading Motors
+    public static final int ARM_MOTOR_ID = -1;
+    public static final int INTAKE_MOTOR_ID = -1;
+    public static final int UPTAKE_MOTOR_ID = -1;
+
+    //Climber Motors
+    public static final int CLIMBER_MOTOR_1 = -1;
+    public static final int CLIMBER_MOTOR_2 = -1;
+
     //Joystick Variables
     public static final int JOYSTICK_DRIVER_PORT = 0;
     public static final int JOYSTICK_OPERATOR_PORT = 1;
+    public static final int JOYSTICK_RIGHT_AXIS = 1;
+    public static final int JOYSTICK_LEFT_AXIS = 3;
+    
+    //Operator Controls
+    public static final int OPERATOR_INTAKE_UPTAKE_BUTTON = 6;
+    public static final int OPERATOR_ARM_BUTTON = 3;
 
     //Speed Variables
     public static final double DRIVE_SPEED = 0.8;

@@ -37,8 +37,8 @@ public class Robot extends TimedRobot {
   DifferentialDrive dT = new DifferentialDrive(l, r);
 
   //Joysticks
-  Joystick driver = new Joystick(0);
-
+  Joystick driver = new Joystick(RobotMap.JOYSTICK_DRIVER_PORT);
+  Joystick operator = new Joystick(RobotMap.JOYSTICK_OPERATOR_PORT);
 
   @Override
   public void robotInit() {
@@ -58,7 +58,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    dT.tankDrive(driver.getRawAxis(1) * RobotMap.DRIVE_SPEED, driver.getRawAxis(3) * RobotMap.DRIVE_SPEED);
+    dT.tankDrive(driver.getRawAxis(RobotMap.JOYSTICK_LEFT_AXIS) * RobotMap.DRIVE_SPEED, driver.getRawAxis(RobotMap.JOYSTICK_RIGHT_AXIS) * RobotMap.DRIVE_SPEED);
   }
 
   @Override
@@ -69,4 +69,16 @@ public class Robot extends TimedRobot {
   public void testPeriodic() {
   }
 
+  /*Auxilary Methods
+    *Floor Loading Methods
+      *arm down
+      *run intake/run uptake
+    *Feeder Methods
+      *run indexer & agitator
+      *run flywheel
+    *Climber Methods
+      *deploy tubes
+      *retract tubes (maybe)
+    *Slow Button
+  */
 }
