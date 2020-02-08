@@ -65,7 +65,7 @@ public class Robot extends TimedRobot {
     //SmartDashboard.putNumber("gyro rate change", gyroRateRate);
     //gyroRate = gyro.getRate();
     jyro = gyro.getAngle();
-    kP /= 22.5;
+    kP /= 1.5;
 
   }
 
@@ -91,8 +91,8 @@ public class Robot extends TimedRobot {
   }
 
   public void turnTo(final double angel, final double speedForward) {
-    pidLoop.setSetpoint(jyro);
-    pidLoop.setTolerance(0.5, 1);
+    pidLoop.setSetpoint(angel);
+    pidLoop.setTolerance(0, 0);
     double turn = pidLoop.getPositionError()*kP;
     dT.arcadeDrive(speedForward, turn);
   }
@@ -192,9 +192,6 @@ public class Robot extends TimedRobot {
   double testAngel;
   @Override
   public void testPeriodic() {
-    if (counter.get()==20){
-      testSped = 0;
-    }
     turnTo(testAngel, testSped);
   }
 
@@ -206,8 +203,8 @@ public class Robot extends TimedRobot {
     pidLoop.setI(SmartDashboard.getNumber("Integral"   , i));
     pidLoop.setD(SmartDashboard.getNumber("Derivative" , d));
 
-    testSped =   SmartDashboard.getNumber("test speed", 0.5);
-    testAngel=   SmartDashboard.getNumber("test angle (degrees)", 0);
+    testSped =   SmartDashboard.getNumber("test speed", 0);
+    testAngel=   SmartDashboard.getNumber("test angle (degrees)", 30);
     counter.reset();
     counter.start();
   }
