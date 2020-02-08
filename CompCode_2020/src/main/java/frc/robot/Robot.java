@@ -58,7 +58,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    dT.tankDrive(driver.getRawAxis(RobotMap.JOYSTICK_LEFT_AXIS) * RobotMap.DRIVE_SPEED, driver.getRawAxis(RobotMap.JOYSTICK_RIGHT_AXIS) * RobotMap.DRIVE_SPEED);
+    dT.tankDrive(driver.getRawAxis(RobotMap.DRIVER_LEFT_AXIS) * RobotMap.DRIVE_SPEED, driver.getRawAxis(RobotMap.DRIVER_RIGHT_AXIS) * RobotMap.DRIVE_SPEED);
   }
 
   @Override

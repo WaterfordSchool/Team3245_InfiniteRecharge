@@ -30,18 +30,24 @@ public class RobotMap {
     public static final int CLIMBER_MOTOR_1 = -1;
     public static final int CLIMBER_MOTOR_2 = -1;
 
-    //Joystick Variables
-    public static final int JOYSTICK_DRIVER_PORT = 0;
-    public static final int JOYSTICK_OPERATOR_PORT = 1;
-    public static final int JOYSTICK_RIGHT_AXIS = 1;
-    public static final int JOYSTICK_LEFT_AXIS = 3;
+    //Driver Controls
+    public static final int DRIVER_PORT = 0;
+    public static final int DRIVER_RIGHT_AXIS = 1;
+    public static final int DRIVER_LEFT_AXIS = 3;
+    public static final int DRIVER_ARM_BUTTON = 3;
+    public static final int DRIVER_INTAKE_UPTAKE_BUTTON = 6;
+    public static final int DRIVER_SLOW_BUTTON = 7; //or 8
     
     //Operator Controls
-    public static final int OPERATOR_INTAKE_UPTAKE_BUTTON = 6;
-    public static final int OPERATOR_ARM_BUTTON = 3;
+    public static final int OPERATOR_PORT = 1;
+    public static final int OPERATOR_INDEXER_AGIT_BUTTON = 6;
+    public static final int OPERATOR_FLYWHEEL = 5;
+    public static final int OPERATOR_CLIMBER_UP = 8;
+    public static final int OPERATOR_CLIMBER_DOWN = 7;
 
     //Speed Variables
     public static final double DRIVE_SPEED = 0.8;
+    public static final double DRIVE_SLOW_SPEED = 0.4;
     public static final double INDEX_SPEED = 0.8;
     public static final double FLYWHEEL_SPEED = 0.9;
 }
