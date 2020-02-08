@@ -116,10 +116,10 @@ public class Robot extends TimedRobot {
     if(driver.getRawButton(RobotMap.DRIVER_ARM_BUTTON)){
       while(timeElapsed < 3){
         if(isDown){
-          arm.set(0.7);
+          arm.set(RobotMap.ARM_SPEED);
         }
         if(!isDown){
-          arm.set(0.7);
+          arm.set(-RobotMap.ARM_SPEED);
         }
       }
     }
@@ -128,8 +128,8 @@ public class Robot extends TimedRobot {
 
   public void intakeUptake() {
     if(driver.getRawButton(RobotMap.DRIVER_INTAKE_UPTAKE_BUTTON)){
-      intake.set(0.7);
-      uptake.set(0.7);
+      intake.set(RobotMap.INTAKE_UPTAKE_SPEED);
+      uptake.set(RobotMap.INTAKE_UPTAKE_SPEED);
     }
     else{
       intake.set(0.0);
@@ -140,16 +140,16 @@ public class Robot extends TimedRobot {
   //Feeder Methods
   public void indexAgitator() {
     if(driver.getRawButton(RobotMap.OPERATOR_INDEXER_AGIT_BUTTON)){
-      indexAgitator.set(0.7);
-  }
-  else{
-    indexAgitator.set(0.0);
-  }
+      indexAgitator.set(RobotMap.INDEX_AGIT_SPEED);
+    }
+    else{
+      indexAgitator.set(0.0);
+    }
  }
 
  public void flywheel(){
    if(driver.getRawButton(RobotMap.OPERATOR_FLYWHEEL_BUTTON)){
-     flywheel.set(0.9);
+     flywheel.set(RobotMap.FLYWHEEL_SPEED);
    }
    else{
      flywheel.set(0.0);
@@ -159,12 +159,12 @@ public class Robot extends TimedRobot {
  //Climber Methods
  public void deployClimber() {
    if(operator.getRawButton(RobotMap.OPERATOR_CLIMBER_UP_BUTTON)){
-      climbLeft.set(0.6);
-      climbRight.set(0.6);
+      climbLeft.set(RobotMap.CLIMB_SPEED);
+      climbRight.set(RobotMap.CLIMB_SPEED);
    }
    if(operator.getRawButton(RobotMap.OPERATOR_CLIMBER_DOWN_BUTTON)){
-      climbLeft.set(-0.6);
-      climbRight.set(-0.6);
+      climbLeft.set(-RobotMap.CLIMB_SPEED);
+      climbRight.set(-RobotMap.CLIMB_SPEED);
    }
  }
 }
