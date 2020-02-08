@@ -37,8 +37,8 @@ public class Robot extends TimedRobot {
   DifferentialDrive dT = new DifferentialDrive(l, r);
 
   //Joysticks
-  Joystick driver = new Joystick(RobotMap.JOYSTICK_DRIVER_PORT);
-  Joystick operator = new Joystick(RobotMap.JOYSTICK_OPERATOR_PORT);
+  Joystick driver = new Joystick(RobotMap.DRIVER_PORT);
+  Joystick operator = new Joystick(RobotMap.OPERATOR_PORT);
 
   @Override
   public void robotInit() {
