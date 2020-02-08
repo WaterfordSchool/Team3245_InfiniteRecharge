@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Timer;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -36,9 +38,28 @@ public class Robot extends TimedRobot {
   //Drive Train
   DifferentialDrive dT = new DifferentialDrive(l, r);
 
+  //Floor Loading Motors
+  WPI_TalonSRX arm = new WPI_TalonSRX(RobotMap.ARM_MOTOR_ID);
+  WPI_TalonSRX intake = new WPI_TalonSRX(RobotMap.INTAKE_MOTOR_ID);
+  WPI_TalonSRX uptake = new WPI_TalonSRX(RobotMap.UPTAKE_MOTOR_ID);
+
+  //Feeding Motors
+  WPI_TalonSRX flywheel = new WPI_TalonSRX(RobotMap.FLYWHEEL_MOTOR_ID);
+  WPI_TalonSRX indexAgitator = new WPI_TalonSRX(RobotMap.INDEX_AGIT_MOTOR_ID);
+
+  //Climbing Motors
+  WPI_TalonSRX climbLeft = new WPI_TalonSRX(RobotMap.CLIMBER_MOTOR_L);
+  WPI_TalonSRX climbRight = new WPI_TalonSRX(RobotMap.CLIMBER_MOTOR_R);
+
   //Joysticks
-  Joystick driver = new Joystick(RobotMap.JOYSTICK_DRIVER_PORT);
-  Joystick operator = new Joystick(RobotMap.JOYSTICK_OPERATOR_PORT);
+  Joystick driver = new Joystick(RobotMap.DRIVER_PORT);
+  Joystick operator = new Joystick(RobotMap.OPERATOR_PORT);
+
+  //Timer
+  Timer timer = new Timer();
+  double autoStartTime;
+  double timeStart;
+  double currentTime;
 
   @Override
   public void robotInit() {
@@ -58,7 +79,14 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    dT.tankDrive(driver.getRawAxis(RobotMap.JOYSTICK_LEFT_AXIS) * RobotMap.DRIVE_SPEED, driver.getRawAxis(RobotMap.JOYSTICK_RIGHT_AXIS) * RobotMap.DRIVE_SPEED);
+    currentTime = Timer.getFPGATimestamp();
+    dT.tankDrive(driver.getRawAxis(RobotMap.DRIVER_LEFT_AXIS) * RobotMap.DRIVE_SPEED, driver.getRawAxis(RobotMap.DRIVER_RIGHT_AXIS) * RobotMap.DRIVE_SPEED);
+    armDown();
+    intakeUptake();
+    indexAgitator();
+    flywheel();
+    deployClimber();
+    slowButton();
   }
 
   @Override
@@ -81,4 +109,70 @@ public class Robot extends TimedRobot {
       *retract tubes (maybe)
     *Slow Button
   */
+
+  //Floor Loading Methods
+  public void armDown(){ //Method needs to be checked, definite errors
+    timeStart = currentTime - autoStartTime;
+    boolean isDown = true;
+    if(driver.getRawButton(RobotMap.DRIVER_ARM_BUTTON)){
+      while(currentTime-timeStart < 3){
+        if(isDown){
+          arm.set(RobotMap.ARM_SPEED);
+        }
+        if(!isDown){
+          arm.set(-RobotMap.ARM_SPEED);
+        }
+      }
+    }
+    isDown = !isDown;
+  }
+
+  public void intakeUptake() {
+    if(driver.getRawButton(RobotMap.DRIVER_INTAKE_UPTAKE_BUTTON)){
+      intake.set(RobotMap.INTAKE_UPTAKE_SPEED);
+      uptake.set(RobotMap.INTAKE_UPTAKE_SPEED);
+    }
+    else{
+      intake.set(0.0);
+      uptake.set(0.0);
+    }
+  }
+
+  //Feeder Methods
+  public void indexAgitator() {
+    if(driver.getRawButton(RobotMap.OPERATOR_INDEXER_AGIT_BUTTON)){
+      indexAgitator.set(RobotMap.INDEX_AGIT_SPEED);
+    }
+    else{
+      indexAgitator.set(0.0);
+    }
+ }
+
+ public void flywheel(){
+   if(driver.getRawButton(RobotMap.OPERATOR_FLYWHEEL_BUTTON)){
+     flywheel.set(RobotMap.FLYWHEEL_SPEED);
+   }
+   else{
+     flywheel.set(0.0);
+   }
+ }
+
+ //Climber Methods
+ public void deployClimber() {
+   if(operator.getRawButton(RobotMap.OPERATOR_CLIMBER_UP_BUTTON)){
+      climbLeft.set(RobotMap.CLIMB_SPEED);
+      climbRight.set(RobotMap.CLIMB_SPEED);
+   }
+   if(operator.getRawButton(RobotMap.OPERATOR_CLIMBER_DOWN_BUTTON)){
+      climbLeft.set(-RobotMap.CLIMB_SPEED);
+      climbRight.set(-RobotMap.CLIMB_SPEED);
+   }
+ }
+
+ //Slow Button
+ public void slowButton(){
+   if(driver.getRawButton(RobotMap.DRIVER_SLOW_BUTTON_1) && driver.getRawButton(RobotMap.DRIVER_SLOW_BUTTON_2)){
+    dT.tankDrive(driver.getRawAxis(RobotMap.DRIVER_LEFT_AXIS) * 0.5, driver.getRawAxis(RobotMap.DRIVER_RIGHT_AXIS) * 0.5);
+   }
+ }
 }
