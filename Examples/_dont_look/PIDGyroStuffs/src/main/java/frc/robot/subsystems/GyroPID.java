@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 
@@ -17,7 +18,8 @@ public class GyroPID extends PIDSubsystem {
   public GyroPID() {
     super(
         // The PIDController used by the subsystem
-        new PIDController(0, 0, 0));
+        new PIDController(1, 0, 0));
+        ADXRS450_Gyro g = new ADXRS450_Gyro();
   }
 
   @Override
