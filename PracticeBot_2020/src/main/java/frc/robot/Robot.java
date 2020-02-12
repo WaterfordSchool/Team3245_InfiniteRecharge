@@ -65,7 +65,6 @@ public class Robot extends TimedRobot {
     //SmartDashboard.putNumber("gyro rate change", gyroRateRate);
     //gyroRate = gyro.getRate();
     jyro = gyro.getAngle();
-    kP /= 1.5;
 
   }
 
@@ -79,6 +78,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousPeriodic() {
+    turnTo(30, testSped);
   }
 
   public void index(){
@@ -93,8 +93,9 @@ public class Robot extends TimedRobot {
   public void turnTo(final double angel, final double speedForward) {
     pidLoop.setSetpoint(angel);
     pidLoop.setTolerance(0, 0);
-    double turn = pidLoop.getPositionError()*kP;
+    double turn = pidLoop.calculate(gyro.getAngle());
     dT.arcadeDrive(speedForward, turn);
+    
   }
 
   public void flyWheel() {
