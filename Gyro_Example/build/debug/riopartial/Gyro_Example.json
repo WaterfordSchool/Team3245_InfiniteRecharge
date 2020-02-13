@@ -1,0 +1,9 @@
+[
+  {
+    "artifact": "frcJava (in project Gyro_Example)",
+    "target": "roborio",
+    "debugfile": "frcJava_roborio.debugconfig",
+    "project": "Gyro_Example",
+    "language": "java"
+  }
+]

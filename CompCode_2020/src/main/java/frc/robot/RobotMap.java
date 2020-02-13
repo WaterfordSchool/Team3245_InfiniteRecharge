@@ -47,7 +47,7 @@ public class RobotMap {
     public static final int OPERATOR_CLIMBER_DOWN_BUTTON = 7;
 
     //Speed Variables
-    public static final double DRIVE_SPEED = 0.8;
+    public static final double DRIVE_SPEED = 1.0;
     public static final double DRIVE_SLOW_SPEED = 0.4;
     public static final double INDEX_SPEED = 0.8;
     public static final double FLYWHEEL_SPEED = 0.9;
