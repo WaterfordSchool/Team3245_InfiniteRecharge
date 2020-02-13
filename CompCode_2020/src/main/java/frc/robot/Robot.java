@@ -36,6 +36,7 @@ public class Robot extends TimedRobot {
   SpeedControllerGroup l = new SpeedControllerGroup(l1, l2, l3);
 
   //Drive Train
+  
   DifferentialDrive dT = new DifferentialDrive(l, r);
 
   //Floor Loading Motors
@@ -63,6 +64,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
+    r.setInverted(true);
+    l.setInverted(true);
   }
 
   @Override
