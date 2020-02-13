@@ -42,8 +42,8 @@ public class Robot extends TimedRobot {
   private static final double kAngleSetpoint = 0.0;
   private static double kP = 1.0; // propotional turning constant
   double turn;
-  double p = 1;
-  double i = 0;
+  double p = 50;
+  double i = 2;
   double d = 0;
   double t = 0.05;
   PIDController pidLoop = new PIDController(p, i, d, t);
@@ -78,7 +78,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousPeriodic() {
-    turnTo(30, testSped);
   }
 
   public void index(){
@@ -89,10 +88,10 @@ public class Robot extends TimedRobot {
       indexMotor.set(0.0);
     }
   }
-
+S
   public void turnTo(final double angel, final double speedForward) {
     pidLoop.setSetpoint(angel);
-    pidLoop.setTolerance(0, 0);
+    pidLoop.setTolerance(5, 0.1);
     double turn = pidLoop.calculate(gyro.getAngle());
     dT.arcadeDrive(speedForward, turn);
     
@@ -189,14 +188,15 @@ public class Robot extends TimedRobot {
     //System.out.println(gyro.getAngle());
     //System.out.println("rate"+gyro.getRate());
   }
-  double testSped;
-  double testAngel;
+  double testSped = 0;
+  double testAngel= 90;
   @Override
   public void testPeriodic() {
     turnTo(testAngel, testSped);
   }
 
   public void testInit(){
+    gyro.reset();
     p =          SmartDashboard.getNumber("Parallel"   , p);
     i =          SmartDashboard.getNumber("Integral"   , i);
     d =          SmartDashboard.getNumber("Derivative" , d);
@@ -205,7 +205,7 @@ public class Robot extends TimedRobot {
     pidLoop.setD(SmartDashboard.getNumber("Derivative" , d));
 
     testSped =   SmartDashboard.getNumber("test speed", 0);
-    testAngel=   SmartDashboard.getNumber("test angle (degrees)", 30);
+    testAngel=   SmartDashboard.getNumber("test angle (degrees)", 90);
     counter.reset();
     counter.start();
   }
