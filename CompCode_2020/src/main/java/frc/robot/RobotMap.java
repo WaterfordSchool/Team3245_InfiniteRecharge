@@ -18,17 +18,18 @@ public class RobotMap {
     public static final int L3 = 25;
 
     //Feeder Motors
-    public static final int INDEX_AGIT_MOTOR_ID = -1;
-    public static final int FLYWHEEL_MOTOR_ID = -1;
+    public static final int INDEX_MOTOR_ID = 9;
+    public static final int AGIT_MOTOR_ID = 6;
+    public static final int FLYWHEEL_MOTOR_ID = 7;
 
     //Floor Loading Motors
-    public static final int ARM_MOTOR_ID = -1;
-    public static final int INTAKE_MOTOR_ID = -1;
-    public static final int UPTAKE_MOTOR_ID = -1;
+    public static final int ARM_MOTOR_ID = 8;
+    public static final int INTAKE_MOTOR_ID = 5;
+    public static final int UPTAKE_MOTOR_ID = 10;
 
     //Climber Motors
-    public static final int CLIMBER_MOTOR_L = -1;
-    public static final int CLIMBER_MOTOR_R = -1;
+    public static final int CLIMBER_MOTOR_L = 30;
+    public static final int CLIMBER_MOTOR_R = 40;
 
     //Driver Controls
     public static final int DRIVER_PORT = 0;
@@ -38,6 +39,7 @@ public class RobotMap {
     public static final int DRIVER_INTAKE_UPTAKE_BUTTON = 6;
     public static final int DRIVER_SLOW_BUTTON_1 = 7;
     public static final int DRIVER_SLOW_BUTTON_2 = 8;
+    //public static final int DRIVER_INDEXER_AGIT_BUTTON = 12;
     
     //Operator Controls
     public static final int OPERATOR_PORT = 1;

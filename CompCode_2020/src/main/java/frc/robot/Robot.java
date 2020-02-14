@@ -3,9 +3,7 @@
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
-package frc.robot;
+ package frc.robot;
 
 import edu.wpi.first.wpilibj.Timer;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -46,7 +44,8 @@ public class Robot extends TimedRobot {
 
   //Feeding Motors
   WPI_TalonSRX flywheel = new WPI_TalonSRX(RobotMap.FLYWHEEL_MOTOR_ID);
-  WPI_TalonSRX indexAgitator = new WPI_TalonSRX(RobotMap.INDEX_AGIT_MOTOR_ID);
+  WPI_TalonSRX index = new WPI_TalonSRX(RobotMap.INDEX_MOTOR_ID);
+  WPI_TalonSRX agitator = new WPI_TalonSRX(RobotMap.AGIT_MOTOR_ID);
 
   //Climbing Motors
   WPI_TalonSRX climbLeft = new WPI_TalonSRX(RobotMap.CLIMBER_MOTOR_L);
@@ -144,11 +143,16 @@ public class Robot extends TimedRobot {
   //Feeder Methods
   public void indexAgitator() {
     if(driver.getRawButton(RobotMap.OPERATOR_INDEXER_AGIT_BUTTON)){
-      indexAgitator.set(RobotMap.INDEX_AGIT_SPEED);
+      index.set(RobotMap.INDEX_AGIT_SPEED);
     }
     else{
-      indexAgitator.set(0.0);
+      index.set(0.0);
     }
+ }
+
+ //Agitator Only
+ public void AgitatorButton (){
+   
  }
 
  public void flywheel(){
