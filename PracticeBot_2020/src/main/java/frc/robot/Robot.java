@@ -46,7 +46,7 @@ public class Robot extends TimedRobot {
   double i = 2;
   double d = 0;
   double t = 0.05;
-  PIDController pidLoop = new PIDController(p, i, d, t);
+  PIDController pidLoop = new PIDController(p, i, d);
 
   double jyro;
 
@@ -88,7 +88,6 @@ public class Robot extends TimedRobot {
       indexMotor.set(0.0);
     }
   }
-S
   public void turnTo(final double angel, final double speedForward) {
     pidLoop.setSetpoint(angel);
     pidLoop.setTolerance(5, 0.1);
