@@ -42,12 +42,12 @@ public class Robot extends TimedRobot {
   private static final double kAngleSetpoint = 0.0;
   private static double kP = 1.0; // propotional turning constant
   double turn;
-  double p = 50;
-  double i = 1;
+  double p = 0.015625;
+  double i = 0.03125;
   double d = 0;
   double t = 0.05;
   PIDController pidLoop = new PIDController(p, i, d);
-  double jyro;
+  double jyro=0;
 
   @Override
   public void robotInit() {
@@ -61,6 +61,7 @@ public class Robot extends TimedRobot {
     //gyroValue+= Math.ceil(gyro.getAngle()*100-2)/100;
     //gyroRateRate= Math.abs(gyroRate - gyro.getRate());        
     SmartDashboard.putNumber("heading", gyro.getAngle());
+    SmartDashboard.putNumber("gyro Velocity", jyro-gyro.getAngle());
     //SmartDashboard.putNumber("gyro rate change", gyroRateRate);
     //gyroRate = gyro.getRate();
     jyro = gyro.getAngle();
@@ -71,12 +72,17 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     counter.reset();
     counter.start();
-    gyro.reset();
-    autoRoutine();
   }
-
+  int n = 0;
   @Override
   public void autonomousPeriodic() {
+    gyro.reset();
+    while (n<1){
+    autoRoutine();
+    n++;
+    }
+    gyro.reset();
+    turnTo(0, 0.8);
   }
 
   public void index(){
@@ -89,7 +95,7 @@ public class Robot extends TimedRobot {
   }
   public void turnTo(final double angel, final double speedForward) {
     pidLoop.setSetpoint(angel);
-    pidLoop.setTolerance(5, 0.1);
+    pidLoop.setTolerance(3, 0.1);
     double turn = pidLoop.calculate(gyro.getAngle());
     dT.arcadeDrive(speedForward, turn);
     
@@ -113,7 +119,8 @@ public class Robot extends TimedRobot {
     rightStickVal = driver.getRawAxis(RobotMap.RIGHT_AXIS_ID);
 
     // Tank drive method call
-    dT.arcadeDrive(-leftStickVal * RobotMap.DRIVE_SPEED_ID, -rightStickVal * RobotMap.DRIVE_SPEED_ID);
+    if (leftStickVal<0){rightStickVal= -rightStickVal;}
+    dT.arcadeDrive(-leftStickVal * RobotMap.DRIVE_SPEED_ID, -rightStickVal * 0.75 * RobotMap.DRIVE_SPEED_ID);
     // dT.arcadeDrive(driver.getY(), turningVal);
 
     // index and flyWheel methods call
@@ -133,11 +140,13 @@ public class Robot extends TimedRobot {
     }
 
     counter.reset();
+    gyro.reset();
     while (counter.get() < 4.0) {
       indexMotor.set(0.0);
       flywheelMotor.set(0.0);
       SmartDashboard.putNumber("Counter: ", counter.get());
       // turn right 45 degrees
+      turnTo(90, 0);
       if (gyro.getAngle() < 90) {
         // right.set(Math.pow(45 - startAngle / -45, 3));
         // left.set(Math.pow(45 - startAngle / 45, 3));
@@ -150,11 +159,16 @@ public class Robot extends TimedRobot {
         left.set(0.0);
       }
     }
+    counter.reset();
+    gyro.reset();
+    while (counter.get() < 5){
+      
+    }
 
     gyro.reset();
     counter.reset();
     final double initialValue = gyro.getAngle();
-    while (counter.get()<20){
+    while (counter.get()<0){
       SmartDashboard.putNumber("Counter: ", counter.get());
       double turningValue = initialValue-(kAngleSetpoint - gyro.getAngle());
       // Invert the direction of the turn if we are going backwards
@@ -194,6 +208,7 @@ public class Robot extends TimedRobot {
   }
 
   public void testInit(){
+    counter.reset();
     gyro.reset();
     p =          SmartDashboard.getNumber("Parallel"   , p);
     i =          SmartDashboard.getNumber("Integral"   , i);
@@ -202,10 +217,12 @@ public class Robot extends TimedRobot {
     pidLoop.setI(SmartDashboard.getNumber("Integral"   , i));
     pidLoop.setD(SmartDashboard.getNumber("Derivative" , d));
 
-    testSped =   SmartDashboard.getNumber("test speed", 0);
-    testAngel=   SmartDashboard.getNumber("test angle (degrees)", 30);
+    testSped =   SmartDashboard.getNumber("test speed", 0.5);
+    testAngel=   SmartDashboard.getNumber("test angle (degrees)", 90);
     counter.reset();
     counter.start();
   }
-
+  public void gucciGamerMode(){
+    turnTo(0, 0.5);
+  }
 }
