@@ -43,11 +43,10 @@ public class Robot extends TimedRobot {
   private static double kP = 1.0; // propotional turning constant
   double turn;
   double p = 50;
-  double i = 2;
+  double i = 1;
   double d = 0;
   double t = 0.05;
   PIDController pidLoop = new PIDController(p, i, d);
-
   double jyro;
 
   @Override
@@ -114,7 +113,7 @@ public class Robot extends TimedRobot {
     rightStickVal = driver.getRawAxis(RobotMap.RIGHT_AXIS_ID);
 
     // Tank drive method call
-    dT.tankDrive(-leftStickVal * RobotMap.DRIVE_SPEED_ID, -rightStickVal * RobotMap.DRIVE_SPEED_ID);
+    dT.arcadeDrive(-leftStickVal * RobotMap.DRIVE_SPEED_ID, -rightStickVal * RobotMap.DRIVE_SPEED_ID);
     // dT.arcadeDrive(driver.getY(), turningVal);
 
     // index and flyWheel methods call
@@ -187,8 +186,8 @@ public class Robot extends TimedRobot {
     //System.out.println(gyro.getAngle());
     //System.out.println("rate"+gyro.getRate());
   }
-  double testSped = 0;
-  double testAngel= 90;
+  double testSped ;
+  double testAngel;
   @Override
   public void testPeriodic() {
     turnTo(testAngel, testSped);
@@ -204,7 +203,7 @@ public class Robot extends TimedRobot {
     pidLoop.setD(SmartDashboard.getNumber("Derivative" , d));
 
     testSped =   SmartDashboard.getNumber("test speed", 0);
-    testAngel=   SmartDashboard.getNumber("test angle (degrees)", 90);
+    testAngel=   SmartDashboard.getNumber("test angle (degrees)", 30);
     counter.reset();
     counter.start();
   }
