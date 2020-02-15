@@ -43,7 +43,7 @@ public class Robot extends TimedRobot {
   private static double kP = 1.0; // propotional turning constant
   double turn;
   double p = 0.015625;
-  double i = 0.015625;
+  double i = 0.0073125;
   double d = 0;
   double t = 0.05;
   PIDController pidLoop = new PIDController(p, i, d);
