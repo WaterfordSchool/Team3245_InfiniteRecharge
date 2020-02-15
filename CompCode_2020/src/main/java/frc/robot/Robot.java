@@ -3,7 +3,8 @@
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
- package frc.robot;
+ 
+package frc.robot;
 
 import edu.wpi.first.wpilibj.Timer;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -34,7 +35,6 @@ public class Robot extends TimedRobot {
   SpeedControllerGroup l = new SpeedControllerGroup(l1, l2, l3);
 
   //Drive Train
-  
   DifferentialDrive dT = new DifferentialDrive(l, r);
 
   //Floor Loading Motors
@@ -61,6 +61,7 @@ public class Robot extends TimedRobot {
   double timeStart;
   double currentTime;
 
+
   @Override
   public void robotInit() {
     r.setInverted(true);
@@ -77,6 +78,12 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    l1.setOpenLoopRampRate(RobotMap.RAMP_VAL);
+    l2.setOpenLoopRampRate(RobotMap.RAMP_VAL);
+    l3.setOpenLoopRampRate(RobotMap.RAMP_VAL);
+    r1.setOpenLoopRampRate(RobotMap.RAMP_VAL);
+    r2.setOpenLoopRampRate(RobotMap.RAMP_VAL);
+    r3.setOpenLoopRampRate(RobotMap.RAMP_VAL);
   }
 
   @Override
@@ -89,6 +96,7 @@ public class Robot extends TimedRobot {
     flywheel();
     deployClimber();
     slowButton();
+    Agitator();
   }
 
   @Override
@@ -142,17 +150,25 @@ public class Robot extends TimedRobot {
 
   //Feeder Methods
   public void indexAgitator() {
-    if(driver.getRawButton(RobotMap.OPERATOR_INDEXER_AGIT_BUTTON)){
+    if(operator.getRawButton(RobotMap.OPERATOR_INDEXER_AGIT_BUTTON)){
       index.set(RobotMap.INDEX_AGIT_SPEED);
+      agitator.set(RobotMap.INDEX_AGIT_SPEED);
     }
     else{
       index.set(0.0);
+      agitator.set(0.0);
+
     }
  }
 
  //Agitator Only
- public void AgitatorButton (){
-   
+ public void Agitator (){
+  if(operator.getRawButton(RobotMap.OPERATOR_AGIT_BUTTON)){
+    agitator.set(RobotMap.AGIT_SPEED);
+  }
+  else{
+    agitator.set(0.0);
+  }
  }
 
  public void flywheel(){

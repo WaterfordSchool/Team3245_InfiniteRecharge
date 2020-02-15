@@ -39,16 +39,17 @@ public class RobotMap {
     public static final int DRIVER_INTAKE_UPTAKE_BUTTON = 6;
     public static final int DRIVER_SLOW_BUTTON_1 = 7;
     public static final int DRIVER_SLOW_BUTTON_2 = 8;
-    //public static final int DRIVER_INDEXER_AGIT_BUTTON = 12;
+    public static final int DRIVER_INDEXER_AGIT_BUTTON = 12;
     
     //Operator Controls
     public static final int OPERATOR_PORT = 1;
     public static final int OPERATOR_INDEXER_AGIT_BUTTON = 6;
+    public static final int OPERATOR_AGIT_BUTTON = 3;
     public static final int OPERATOR_FLYWHEEL_BUTTON = 5;
     public static final int OPERATOR_CLIMBER_UP_BUTTON = 8;
     public static final int OPERATOR_CLIMBER_DOWN_BUTTON = 7;
 
-    //Speed Variables
+    //Speed/Misc Variables
     public static final double DRIVE_SPEED = 1.0;
     public static final double DRIVE_SLOW_SPEED = 0.8;
     public static final double INDEX_SPEED = 0.8;
@@ -56,5 +57,7 @@ public class RobotMap {
     public static final double ARM_SPEED = 0.7;
     public static final double INTAKE_UPTAKE_SPEED = 0.7;
     public static final double INDEX_AGIT_SPEED = 0.7;
+    public static final double AGIT_SPEED = 0.7;
     public static final double CLIMB_SPEED = 0.6;
+    public static final double RAMP_VAL = 0.4;
 }
