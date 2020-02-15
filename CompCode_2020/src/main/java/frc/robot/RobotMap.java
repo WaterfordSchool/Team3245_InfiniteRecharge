@@ -40,6 +40,7 @@ public class RobotMap {
     public static final int DRIVER_INTAKE_UPTAKE_BUTTON = 6;
     public static final int DRIVER_SLOW_BUTTON_1 = 7;
     public static final int DRIVER_SLOW_BUTTON_2 = 8;
+    //public static final int DRIVER_INDEXER_AGIT_BUTTON = 12;
     
     //Operator Controls
     public static final int OPERATOR_PORT = 1;
