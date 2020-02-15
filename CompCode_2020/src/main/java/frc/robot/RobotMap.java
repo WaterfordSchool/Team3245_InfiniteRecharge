@@ -18,7 +18,7 @@ public class RobotMap {
     public static final int L3 = 25;
 
     //Feeder Motors
-    public static final int AGITATOR_MOTOR_ID = 0;
+    public static final int AGIT_MOTOR_ID = 0;
     public static final int INDEX_MOTOR_ID = 1;
     public static final int FLYWHEEL_MOTOR_ID = 2;
 
