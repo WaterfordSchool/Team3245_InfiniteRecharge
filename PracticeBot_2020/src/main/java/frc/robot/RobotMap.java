@@ -15,7 +15,7 @@ public class RobotMap {
     public static final int INDEX_MOTOR_ID = 7;
 
     //Speed Constant
-    public static final double DRIVE_SPEED_ID = 0.8;
+    public static final double DRIVE_SPEED_ID = 1.0;
     public static final double INDEX_SPEED_ID = 0.8;
     public static final double FLYWHEEL_SPEED_ID = 0.9;
     public static final double FLYWHEEL_SLOW_SPEED_ID = 0.5;
