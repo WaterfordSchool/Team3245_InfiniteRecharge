@@ -8,14 +8,14 @@ package frc.robot;
 public class RobotMap {
 
     //Right
-    public static final int R1 = 22;
+    public static final int R1 = 20;
     public static final int R2 = 23;
     public static final int R3 = 25;
 
     //Left
-    public static final int L1 = 20;
+    public static final int L1 = 22;
     public static final int L2 = 21;
-    public static final int L3 = 25;
+    public static final int L3 = 24;
 
     //Feeder Motors
     public static final int AGIT_MOTOR_ID = 0;
