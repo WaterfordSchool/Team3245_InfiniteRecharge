@@ -21,14 +21,14 @@ import edu.wpi.first.wpilibj.TimedRobot;
 public class Robot extends TimedRobot {
   
   //Left Drive Motors
-  CANSparkMax l1 = new CANSparkMax(20, MotorType.kBrushless);
-  CANSparkMax l2 = new CANSparkMax(21, MotorType.kBrushless);
-  CANSparkMax l3 = new CANSparkMax(25, MotorType.kBrushless);
+  CANSparkMax l1 = new CANSparkMax(RobotMap.L1, MotorType.kBrushless);
+  CANSparkMax l2 = new CANSparkMax(RobotMap.L2, MotorType.kBrushless);
+  CANSparkMax l3 = new CANSparkMax(RobotMap.L3, MotorType.kBrushless);
 
   //Right Drive Motors
-  CANSparkMax r1 = new CANSparkMax(22, MotorType.kBrushless);
-  CANSparkMax r2 = new CANSparkMax(23, MotorType.kBrushless);
-  CANSparkMax r3 = new CANSparkMax(24, MotorType.kBrushless);
+  CANSparkMax r1 = new CANSparkMax(RobotMap.R1, MotorType.kBrushless);
+  CANSparkMax r2 = new CANSparkMax(RobotMap.R2, MotorType.kBrushless);
+  CANSparkMax r3 = new CANSparkMax(RobotMap.R3, MotorType.kBrushless);
 
   //Speed Controller Groups
   SpeedControllerGroup r = new SpeedControllerGroup(r1, r2, r3);
