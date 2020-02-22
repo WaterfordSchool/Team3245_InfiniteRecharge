@@ -24,7 +24,7 @@ public class Robot extends TimedRobot {
   CANSparkMax l1 = new CANSparkMax(RobotMap.L1, MotorType.kBrushless);
   CANSparkMax l2 = new CANSparkMax(RobotMap.L2, MotorType.kBrushless);
   CANSparkMax l3 = new CANSparkMax(RobotMap.L3, MotorType.kBrushless);
-
+    
   //Right Drive Motors
   CANSparkMax r1 = new CANSparkMax(RobotMap.R1, MotorType.kBrushless);
   CANSparkMax r2 = new CANSparkMax(RobotMap.R2, MotorType.kBrushless);

@@ -23,13 +23,13 @@ public class RobotMap {
     public static final int FLYWHEEL_MOTOR_ID = 2;
 
     //Floor Loading Motors
-    public static final int ARM_MOTOR_ID = 3;
-    public static final int INTAKE_MOTOR_ID = 4;
-    public static final int UPTAKE_MOTOR_ID = 5;
+    public static final int ARM_MOTOR_ID = 9;
+    public static final int INTAKE_MOTOR_ID = 8;
+    public static final int UPTAKE_MOTOR_ID = 6;
 
     //Climber Motors
-    public static final int CLIMBER_MOTOR_L = 6;
-    public static final int CLIMBER_MOTOR_R = 7;
+    public static final int CLIMBER_MOTOR_L = 3;
+    public static final int CLIMBER_MOTOR_R = 4;
     public static final int CLIMBER_MOTOR_M = 8;
 
     //Driver Controls
