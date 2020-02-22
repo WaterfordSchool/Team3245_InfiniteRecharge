@@ -43,7 +43,7 @@ public class Robot extends TimedRobot {
   private static double kP = 1.0; // propotional turning constant
   double turn;
   double p = 0.015625;
-  double i = 0.015625;
+  double i = 0/*.015625*/;
   double d = 0;
   double t = 0.05;
   PIDController pidLoop = new PIDController(p, i, d);
@@ -76,13 +76,18 @@ public class Robot extends TimedRobot {
   int n = 0;
   @Override
   public void autonomousPeriodic() {
-    gyro.reset();
-    while (n<1){
-    autoRoutine();
-    n++;
+    SmartDashboard.putNumber("Counter: ", counter.get());
+    if (counter.get()<3){
+      indexMotor.set(RobotMap.INDEX_SPEED_ID);
+      flywheelMotor.set(RobotMap.FLYWHEEL_SLOW_SPEED_ID);
+      right.set(0.0);
+      left.set(0.0);
+      gyro.reset();
+    }else if (counter.get()<6){
+      turnTo(90, 0.2);
+    }else if (counter.get()<9){
+      turnTo(90, 0.8);
     }
-    gyro.reset();
-    turnTo(0, 0.8);
   }
 
   public void index(){
