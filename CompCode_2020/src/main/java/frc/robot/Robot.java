@@ -61,6 +61,7 @@ public class Robot extends TimedRobot {
   double timeStart;
   double currentTime;
 
+  //Gyro
 
   @Override
   public void robotInit() {
