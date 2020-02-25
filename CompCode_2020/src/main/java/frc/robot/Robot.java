@@ -14,6 +14,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -68,6 +69,9 @@ public class Robot extends TimedRobot {
   ADXRS450_Gyro gyro = new ADXRS450_Gyro();
   double p,i,d = 0;
   PIDController PID = new PIDController(p, i, d);
+
+  //Limit Switch
+  DigitalInput armDownSwitch = new DigitalInput(0);
 
   @Override
   public void robotInit() {
@@ -201,11 +205,8 @@ public class Robot extends TimedRobot {
 
  //Slow Button
  public void speedButton(){
-   if(driver.getRawButton(RobotMap.DRIVER_SLOW_BUTTON)){
-    dT.tankDrive(driver.getRawAxis(RobotMap.DRIVER_LEFT_AXIS) * RobotMap.DRIVE_SLOW_SPEED, driver.getRawAxis(RobotMap.DRIVER_RIGHT_AXIS) * RobotMap.DRIVE_SLOW_SPEED);
-   }
-   if(driver.getRawButton(RobotMap.DRIVER_FAST_BUTTON)){
-    dT.tankDrive(driver.getRawAxis(RobotMap.DRIVER_LEFT_AXIS)*RobotMap.DRIVE_SPEED, driver.getRawAxis(RobotMap.DRIVER_RIGHT_AXIS)*RobotMap.DRIVE_SPEED);
+   if(driver.getRawButton(RobotMap.DRIVER_FAST_BUTTON_1) || driver.getRawButton(RobotMap.DRIVER_FAST_BUTTON_2)){
+    dT.tankDrive(driver.getRawAxis(RobotMap.DRIVER_LEFT_AXIS)*RobotMap.DRIVE_FAST_SPEED, driver.getRawAxis(RobotMap.DRIVER_RIGHT_AXIS)*RobotMap.DRIVE_FAST_SPEED);
    }
  }
 
