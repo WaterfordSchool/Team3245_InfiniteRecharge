@@ -72,6 +72,9 @@ public class Robot extends TimedRobot {
 
   //Limit Switch
   DigitalInput armDownSwitch = new DigitalInput(0);
+  DigitalInput armUpSwitch = new DigitalInput(1);
+  boolean isDown = false;
+  boolean isPressed = false;
 
   @Override
   public void robotInit() {
@@ -146,6 +149,12 @@ public class Robot extends TimedRobot {
       }
     }
     isDown = !isDown;
+  }
+
+  public void armTest(){
+    if(driver.getRawButton(RobotMap.DRIVER_ARM_BUTTON)){
+      
+    }
   }
 
   public void intakeUptake() {
