@@ -152,9 +152,12 @@ public class Robot extends TimedRobot {
   }
 
   public void armTest(){
-    if(driver.getRawButton(RobotMap.DRIVER_ARM_BUTTON)){
-      
-    }
+    //need to check if button pressed
+    //if pressed then run motors while downswitch is false
+    //if button is presssed again and the downswitch is true run motors while upswitch is false
+    //do not set motors to 0
+    //use math.min and math.max to make an output variable
+    //set motors to that output variable
   }
 
   public void intakeUptake() {
