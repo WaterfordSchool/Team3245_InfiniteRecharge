@@ -166,7 +166,7 @@ public class Robot extends TimedRobot {
       intake.set(RobotMap.INTAKE_UPTAKE_SPEED);
       uptake.set(RobotMap.INTAKE_UPTAKE_SPEED);
     }
-    else{
+    else if (!driver.getRawButton(RobotMap.DRIVER_INTAKE_UPTAKE_BUTTON)){
       intake.set(0.0);
       uptake.set(0.0);
     }
@@ -178,7 +178,7 @@ public class Robot extends TimedRobot {
       index.set(RobotMap.INDEX_AGIT_SPEED);
       agitator.set(RobotMap.INDEX_AGIT_SPEED);
     }
-    else{
+    else if (!operator.getRawButton(RobotMap.OPERATOR_INDEXER_AGIT_BUTTON)){
       index.set(0.0);
       agitator.set(0.0);
 
@@ -190,7 +190,7 @@ public class Robot extends TimedRobot {
   if(operator.getRawButton(RobotMap.OPERATOR_AGIT_BUTTON)){
     agitator.set(RobotMap.AGIT_SPEED);
   }
-  else{
+  else if(!operator.getRawButton(RobotMap.OPERATOR_AGIT_BUTTON)){
     agitator.set(0.0);
   }
  }
@@ -199,7 +199,7 @@ public class Robot extends TimedRobot {
    if(driver.getRawButton(RobotMap.OPERATOR_FLYWHEEL_BUTTON)){
      flywheel.set(RobotMap.FLYWHEEL_SPEED);
    }
-   else{
+   else if (!driver.getRawButton(RobotMap.OPERATOR_FLYWHEEL_BUTTON)){
      flywheel.set(0.0);
    }
  }
@@ -214,12 +214,18 @@ public class Robot extends TimedRobot {
       climbLeft.set(-RobotMap.CLIMB_SPEED);
       climbRight.set(-RobotMap.CLIMB_SPEED);
    }
+   if(!operator.getRawButton(RobotMap.OPERATOR_CLIMBER_UP_BUTTON)&&!operator.getRawButton(RobotMap.OPERATOR_CLIMBER_DOWN_BUTTON)){
+      climbLeft.set(0);
+      climbRight.set(0);
+   }
  }
 
  //Slow Button
  public void speedButton(){
    if(driver.getRawButton(RobotMap.DRIVER_FAST_BUTTON_1) || driver.getRawButton(RobotMap.DRIVER_FAST_BUTTON_2)){
     dT.tankDrive(driver.getRawAxis(RobotMap.DRIVER_LEFT_AXIS)*RobotMap.DRIVE_FAST_SPEED, driver.getRawAxis(RobotMap.DRIVER_RIGHT_AXIS)*RobotMap.DRIVE_FAST_SPEED);
+   }else if (!driver.getRawButton(RobotMap.DRIVER_FAST_BUTTON_1)||!driver.getRawButton(RobotMap.DRIVER_FAST_BUTTON_2)){
+
    }
  }
 
@@ -228,6 +234,18 @@ public class Robot extends TimedRobot {
   PID.setSetpoint(targetAngle);
   PID.setTolerance(3, 0.1);
   double turn = PID.calculate(gyro.getAngle());
-  dT.arcadeDrive(targetSpeed, turn);
+  double left = targetSpeed + turn;
+  double right = targetSpeed - turn;
+  if(left>1){
+    right = right - 1 + left;
+  }else if (left<-1){
+    right = right + 1 - left;
+  }
+  if(right>1){
+    left = left - 1 + right;
+  }else if (right<-1){
+    left = left + 1 - right;
+  }
+  dT.tankDrive(left, right);
   }
  }
