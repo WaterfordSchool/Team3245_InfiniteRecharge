@@ -159,6 +159,14 @@ public class Robot extends TimedRobot {
     //do not set motors to 0
     //use math.min and math.max to make an output variable
     //set motors to that output variable
+    if(driver.getRawButton(RobotMap.DRIVER_ARM_BUTTON)){
+      if(!armDownSwitch.get()){
+        arm.set(RobotMap.ARM_SPEED);
+      }
+      if(armDownSwitch.get() && !armUpSwitch.get()){
+        arm.set(-RobotMap.ARM_SPEED);
+      }
+    }
   }
 
   public void intakeUptake() {
