@@ -61,5 +61,6 @@ public class RobotMap {
     public static final double AGIT_SPEED = 0.7;
     public static final double CLIMB_SPEED = 0.6;
     public static final double RAMP_VAL = 0.6;
-    public static final double LIMIT_SWITCH_PORT = 0;
+    public static final int LIMIT_SWITCH_D_PORT = 0;
+    public static final int LIMIT_SWITCH_U_PORT = 1;
 }
