@@ -28,7 +28,7 @@ public class RobotMap {
     public static final int UPTAKE_MOTOR_ID = 6;
 
     //Climber Motors
-    public static final int CLIMBER_MOTOR_L = 3;
+    public static final int CLIMBER_MOTOR_L = 10;
     public static final int CLIMBER_MOTOR_R = 4;
     public static final int CLIMBER_MOTOR_M = 8;
 
@@ -48,7 +48,7 @@ public class RobotMap {
     public static final int OPERATOR_AGIT_BUTTON = 2;
     public static final int OPERATOR_FLYWHEEL_BUTTON = 6;
     public static final int OPERATOR_CLIMBER_UP_BUTTON = 4;
-    public static final int OPERATOR_CLIMBER_DOWN_BUTTON = 1;
+    public static final int OPERATOR_CLIMBER_DOWN_BUTTON = 2;
 
     //Speed/Misc Variables
     public static final double DRIVE_SPEED = 0.9;
