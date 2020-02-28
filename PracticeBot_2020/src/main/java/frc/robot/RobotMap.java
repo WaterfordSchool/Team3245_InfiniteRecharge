@@ -23,8 +23,8 @@ public class RobotMap {
     //Joystick Constants
     public static final int JOYSTICK_DRIVER_PORT_ID = 0;
     public static final int JOYSTICK_OPERATOR_PORT_ID =1;
-    public static final int LEFT_AXIS_ID = 1;
-    public static final int RIGHT_AXIS_ID = 3;
+    public static final int LEFT_AXIS_ID = 3;
+    public static final int RIGHT_AXIS_ID = 1;
     public static final int INDEX_BUTTON_ID = 5;
     public static final int FLYWHEEL_BUTTON_ID = 6;
     public static final int FLYWHEEL_SLOW_BUTTON_ID = 7;

@@ -71,6 +71,9 @@ public class Robot extends TimedRobot {
   double p = 0.015625;
   PIDController PID = new PIDController(p, i, d);
 
+  //Timer
+  Timer t = new Timer();
+
   //Limit Switch
   DigitalInput armDownSwitch = new DigitalInput(RobotMap.LIMIT_SWITCH_D_PORT);
   DigitalInput armUpSwitch = new DigitalInput(RobotMap.LIMIT_SWITCH_U_PORT);
@@ -81,6 +84,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     r.setInverted(true);
     l.setInverted(true);
+    gyro.calibrate();
   }
 
   @Override
@@ -116,10 +120,17 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testInit() {
+    gyro.reset();
+    t.start();
+    t.reset();
+    while (t.get()<6){
+      gyro.calibrate();
+    }
   }
 
   @Override
   public void testPeriodic() {
+    turnTo(90, 0);
   }
 
   /*Auxilary Methods
@@ -243,18 +254,6 @@ public class Robot extends TimedRobot {
   PID.setSetpoint(targetAngle);
   PID.setTolerance(3, 0.1);
   double turn = PID.calculate(gyro.getAngle());
-  double left = targetSpeed + turn;
-  double right = targetSpeed - turn;
-  if(left>1){
-    right = right - 1 + left;
-  }else if (left<-1){
-    right = right + 1 - left;
-  }
-  if(right>1){
-    left = left - 1 + right;
-  }else if (right<-1){
-    left = left + 1 - right;
-  }
-  dT.tankDrive(left, right);
+  dT.arcadeDrive(targetSpeed, turn);
   }
  }

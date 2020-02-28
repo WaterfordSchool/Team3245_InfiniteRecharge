@@ -124,9 +124,10 @@ public class Robot extends TimedRobot {
     rightStickVal = driver.getRawAxis(RobotMap.RIGHT_AXIS_ID);
 
     // Tank drive method call
-    if (leftStickVal<0){rightStickVal= -rightStickVal;}
-    dT.arcadeDrive(-leftStickVal * RobotMap.DRIVE_SPEED_ID, -rightStickVal * 0.75 * RobotMap.DRIVE_SPEED_ID);
+    //if (leftStickVal<0){rightStickVal= -rightStickVal;}
+    //dT.arcadeDrive(-leftStickVal * RobotMap.DRIVE_SPEED_ID, -rightStickVal * 0.75 * RobotMap.DRIVE_SPEED_ID);
     // dT.arcadeDrive(driver.getY(), turningVal);
+    dT.tankDrive(-leftStickVal * RobotMap.DRIVE_SPEED_ID, -rightStickVal * RobotMap.DRIVE_SPEED_ID);
 
     // index and flyWheel methods call
     index();
