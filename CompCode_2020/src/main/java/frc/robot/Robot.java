@@ -67,7 +67,7 @@ public class Robot extends TimedRobot {
   //Gyro
   ADXRS450_Gyro gyro = new ADXRS450_Gyro();
   double i,d = 0;
-  double p = 0.015625;
+  double p = Math.pow(0.5, 12);
   PIDController PID = new PIDController(p, i, d);
 
   //Limit Switch
@@ -137,7 +137,7 @@ public class Robot extends TimedRobot {
     if(driver.getRawButton(RobotMap.DRIVER_ARM_UP_BUTTON)){
       arm.set(-RobotMap.ARM_SPEED);
     }
-    else{
+    if(!driver.getRawButton(RobotMap.DRIVER_ARM_DOWN_BUTTON) && !driver.getRawButton(RobotMap.DRIVER_ARM_UP_BUTTON)){
       arm.set(0.0);
     }
   }
@@ -253,6 +253,10 @@ public class Robot extends TimedRobot {
   PID.setSetpoint(targetAngle);
   PID.setTolerance(3, 0.1);
   double turn = PID.calculate(gyro.getAngle());
-  dT.arcadeDrive(targetSpeed, turn);
+  if(PID.getPositionError()<3){
+    dT.tankDrive(turn, -turn);
+  }else{
+    dT.arcadeDrive(targetSpeed, turn);
+  }
   }
  }
