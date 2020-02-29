@@ -18,7 +18,6 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 
@@ -133,20 +132,7 @@ public class Robot extends TimedRobot {
     turnTo(90, 0);
   }
 
-  /*Auxilary Methods
-    *Floor Loading Methods
-      *arm down
-      *run intake/run uptake
-    *Feeder Methods
-      *run indexer & agitator
-      *run flywheel
-    *Climber Methods
-      *deploy tubes
-      *retract tubes (maybe)
-    *Slow Button
-  */
-
-  //Floor Loading Methods
+  //Arm Method
   public void armUpDown(){
     if(driver.getRawButton(RobotMap.DRIVER_ARM_DOWN_BUTTON)){
       arm.set(RobotMap.ARM_SPEED);
@@ -159,7 +145,7 @@ public class Robot extends TimedRobot {
     }
   }
 
-
+  /*
   public void armDown(){ //Method needs to be checked, definite errors
     timeStart = currentTime - autoStartTime;
     boolean isDown = true;
@@ -175,7 +161,9 @@ public class Robot extends TimedRobot {
     }
     isDown = !isDown;
   }
+  */
 
+  /*
   public void armTest(){
     //need to check if button pressed
     //if pressed then run motors while downswitch is false
@@ -192,6 +180,7 @@ public class Robot extends TimedRobot {
       }
     }
   }
+  */
 
   public void intakeUptake() {
     if(driver.getRawButton(RobotMap.DRIVER_INTAKE_UPTAKE_BUTTON)){
@@ -252,7 +241,7 @@ public class Robot extends TimedRobot {
    }
  }
 
- //Slow Button
+ //Speed Button(s)
  public void speedButton(){
    if(driver.getRawButton(RobotMap.DRIVER_FAST_BUTTON_1) || driver.getRawButton
    (RobotMap.DRIVER_FAST_BUTTON_2)){
