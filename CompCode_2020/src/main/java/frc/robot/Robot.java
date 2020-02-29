@@ -109,7 +109,7 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     currentTime = Timer.getFPGATimestamp();
     dT.tankDrive(driver.getRawAxis(RobotMap.DRIVER_LEFT_AXIS) * RobotMap.DRIVE_SPEED, driver.getRawAxis(RobotMap.DRIVER_RIGHT_AXIS) * RobotMap.DRIVE_SPEED);
-    armDown();
+    armUpDown();
     intakeUptake();
     indexAgitator();
     flywheel();
@@ -147,10 +147,23 @@ public class Robot extends TimedRobot {
   */
 
   //Floor Loading Methods
+  public void armUpDown(){
+    if(driver.getRawButton(RobotMap.DRIVER_ARM_DOWN_BUTTON)){
+      arm.set(RobotMap.ARM_SPEED);
+    }
+    if(driver.getRawButton(RobotMap.DRIVER_ARM_UP_BUTTON)){
+      arm.set(-RobotMap.ARM_SPEED);
+    }
+    else{
+      arm.set(0.0);
+    }
+  }
+
+
   public void armDown(){ //Method needs to be checked, definite errors
     timeStart = currentTime - autoStartTime;
     boolean isDown = true;
-    if(driver.getRawButton(RobotMap.DRIVER_ARM_BUTTON)){
+    if(driver.getRawButton(RobotMap.DRIVER_ARM_DOWN_BUTTON)){
       while(currentTime-timeStart < 3){
         if(isDown){
           arm.set(RobotMap.ARM_SPEED);
@@ -170,7 +183,7 @@ public class Robot extends TimedRobot {
     //do not set motors to 0
     //use math.min and math.max to make an output variable
     //set motors to that output variable
-    if(driver.getRawButton(RobotMap.DRIVER_ARM_BUTTON)){
+    if(driver.getRawButton(RobotMap.DRIVER_ARM_DOWN_BUTTON)){
       if(!armDownSwitch.get()){
         arm.set(RobotMap.ARM_SPEED);
       }
