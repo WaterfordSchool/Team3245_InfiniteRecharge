@@ -85,10 +85,15 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
+    timer.start();
+    timer.reset();
   }
 
   @Override
   public void autonomousPeriodic() {
+    if(timer.get()<3.0){
+      dT.arcadeDrive(0.5, 0);
+    }
   }
 
   @Override
@@ -142,43 +147,7 @@ public class Robot extends TimedRobot {
     }
   }
 
-  /*
-  public void armDown(){ //Method needs to be checked, definite errors
-    timeStart = currentTime - autoStartTime;
-    boolean isDown = true;
-    if(driver.getRawButton(RobotMap.DRIVER_ARM_DOWN_BUTTON)){
-      while(currentTime-timeStart < 3){
-        if(isDown){
-          arm.set(RobotMap.ARM_SPEED);
-        }
-        if(!isDown){
-          arm.set(-RobotMap.ARM_SPEED);
-        }
-      }
-    }
-    isDown = !isDown;
-  }
-  */
-
-  /*
-  public void armTest(){
-    //need to check if button pressed
-    //if pressed then run motors while downswitch is false
-    //if button is presssed again and the downswitch is true run motors while upswitch is false
-    //do not set motors to 0
-    //use math.min and math.max to make an output variable
-    //set motors to that output variable
-    if(driver.getRawButton(RobotMap.DRIVER_ARM_DOWN_BUTTON)){
-      if(!armDownSwitch.get()){
-        arm.set(RobotMap.ARM_SPEED);
-      }
-      if(armDownSwitch.get() && !armUpSwitch.get()){
-        arm.set(-RobotMap.ARM_SPEED);
-      }
-    }
-  }
-  */
-
+  //Intake Uptake methods
   public void intakeUptake() {
     if(driver.getRawButton(RobotMap.DRIVER_INTAKE_UPTAKE_BUTTON)){
       intake.set(RobotMap.INTAKE_UPTAKE_SPEED);
