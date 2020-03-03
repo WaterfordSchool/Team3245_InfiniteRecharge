@@ -125,9 +125,9 @@ public class Robot extends TimedRobot {
 
     // Tank drive method call
     //if (leftStickVal<0){rightStickVal= -rightStickVal;}
-    //dT.arcadeDrive(-leftStickVal * RobotMap.DRIVE_SPEED_ID, -rightStickVal * 0.75 * RobotMap.DRIVE_SPEED_ID);
-    // dT.arcadeDrive(driver.getY(), turningVal);
-    dT.tankDrive(rightStickVal * RobotMap.DRIVE_SPEED_ID, leftStickVal * RobotMap.DRIVE_SPEED_ID);
+    dT.arcadeDrive(leftStickVal * RobotMap.DRIVE_SPEED_ID, driver.getRawAxis(2) * RobotMap.DRIVE_SPEED_ID);
+    //dT.arcadeDrive(driver.getY(), turningVal);
+    //dT.tankDrive(rightStickVal * RobotMap.DRIVE_SPEED_ID, leftStickVal * RobotMap.DRIVE_SPEED_ID); //This is backwards rn, normally its -leftStick, -rightStick I just needed to flip it because the ramp was backwards and its weird to drive like that lol
 
     // index and flyWheel methods call
     index();

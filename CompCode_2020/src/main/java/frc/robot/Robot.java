@@ -209,9 +209,11 @@ public class Robot extends TimedRobot {
 
  //Speed Button(s)
  public void speedButton(){
-   if(driver.getRawButton(RobotMap.DRIVER_FAST_BUTTON_1) || driver.getRawButton(RobotMap.DRIVER_FAST_BUTTON_2)){
+   if(driver.getRawButton(RobotMap.DRIVER_FAST_BUTTON)){
     dT.arcadeDrive(driver.getRawAxis(RobotMap.DRIVER_LEFT_AXIS)*RobotMap.DRIVE_FAST_SPEED, -driver.getRawAxis(RobotMap.DRIVER_RIGHT_AXIS)*RobotMap.DRIVE_FAST_SPEED);
-   }else if (!driver.getRawButton(RobotMap.DRIVER_FAST_BUTTON_1)||!driver.getRawButton(RobotMap.DRIVER_FAST_BUTTON_2)){
+   }else if(driver.getRawButton(RobotMap.DRIVER_SLOW_BUTTON)){
+    dT.arcadeDrive(driver.getRawAxis(RobotMap.DRIVER_LEFT_AXIS) * RobotMap.DRIVE_SLOW_SPEED, -driver.getRawAxis(RobotMap.DRIVER_RIGHT_AXIS) * RobotMap.DRIVE_SLOW_SPEED);
+   }else if (!driver.getRawButton(RobotMap.DRIVER_SLOW_BUTTON)||!driver.getRawButton(RobotMap.DRIVER_FAST_BUTTON)){
     dT.arcadeDrive(driver.getRawAxis(RobotMap.DRIVER_LEFT_AXIS) * RobotMap.DRIVE_SPEED, -driver.getRawAxis(RobotMap.DRIVER_RIGHT_AXIS) * RobotMap.DRIVE_SPEED);
    }
  }
