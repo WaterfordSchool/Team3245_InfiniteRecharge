@@ -154,8 +154,8 @@ public class Robot extends TimedRobot {
     }
   }
   public void arm(){
-    if(Math.abs(driver.getRawAxis(RobotMap.DRIVER_ARM_AXIS))<0.75){
-      arm.set(RobotMap.ARM_SPEED*driver.getRawAxis(RobotMap.DRIVER_ARM_AXIS)*Math.abs(driver.getRawAxis(RobotMap.DRIVER_ARM_AXIS)));
+    if(Math.abs(operator.getRawAxis(RobotMap.DRIVER_ARM_AXIS))<0.75){
+      arm.set(RobotMap.ARM_SPEED*operator.getRawAxis(RobotMap.DRIVER_ARM_AXIS)*Math.abs(operator.getRawAxis(RobotMap.DRIVER_ARM_AXIS)));
     }
   }
   //Intake Uptake methods
