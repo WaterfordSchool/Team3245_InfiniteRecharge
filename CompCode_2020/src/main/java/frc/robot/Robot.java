@@ -143,18 +143,20 @@ public class Robot extends TimedRobot {
 
   //Arm Method
   public void armUpDown(){
-    if(driver.getRawButton(RobotMap.DRIVER_ARM_DOWN_BUTTON)){
+    if(operator.getRawButton(RobotMap.OPERATOR_ARM_DOWN_BUTTON)){
       arm.set(RobotMap.ARM_SPEED);
     }
-    if(driver.getRawButton(RobotMap.DRIVER_ARM_UP_BUTTON)){
+    if(operator.getRawButton(RobotMap.OPERATOR_ARM_UP_BUTTON)){
       arm.set(-RobotMap.ARM_SPEED);
     }
-    if(!driver.getRawButton(RobotMap.DRIVER_ARM_DOWN_BUTTON) && !driver.getRawButton(RobotMap.DRIVER_ARM_UP_BUTTON)){
+    if(!operator.getRawButton(RobotMap.OPERATOR_ARM_DOWN_BUTTON) && !operator.getRawButton(RobotMap.OPERATOR_ARM_UP_BUTTON)){
       arm.set(0.0);
     }
   }
   public void arm(){
-    arm.set(RobotMap.ARM_SPEED*operator.getRawAxis(RobotMap.OPERATOR_ARM_AXIS));
+    if(Math.abs(operator.getRawAxis(RobotMap.OPERATOR_ARM_AXIS))<0.75){
+      arm.set(RobotMap.ARM_SPEED*operator.getRawAxis(RobotMap.OPERATOR_ARM_AXIS)*Math.abs(operator.getRawAxis(RobotMap.OPERATOR_ARM_AXIS)));
+    }
   }
   //Intake Uptake methods
   public void intakeUptake() {
@@ -162,7 +164,11 @@ public class Robot extends TimedRobot {
       intake.set(RobotMap.INTAKE_UPTAKE_SPEED);
       uptake.set(RobotMap.INTAKE_UPTAKE_SPEED);
     }
-    else if (!driver.getRawButton(RobotMap.DRIVER_INTAKE_UPTAKE_BUTTON)){
+    else if(driver.getRawButton(RobotMap.DRIVER_OUTAKE_DWTAKE_BUTTON)){
+      intake.set(-RobotMap.INTAKE_UPTAKE_SPEED);
+      uptake.set(-RobotMap.INTAKE_UPTAKE_SPEED);
+    }
+    else if (!(driver.getRawButton(RobotMap.DRIVER_INTAKE_UPTAKE_BUTTON)&&driver.getRawButton(RobotMap.DRIVER_OUTAKE_DWTAKE_BUTTON))){
       intake.set(0.0);
       uptake.set(0.0);
     }
@@ -232,7 +238,7 @@ public class Robot extends TimedRobot {
   PID.setSetpoint(targetAngle);
   PID.setTolerance(3, 0.1);
   double turn = PID.calculate(gyro.getAngle());
-  if(PID.getPositionError()<3){
+  if(PID.getPositionError()>3){
     dT.tankDrive(turn, -turn);
   }else{
     dT.arcadeDrive(targetSpeed, turn);
