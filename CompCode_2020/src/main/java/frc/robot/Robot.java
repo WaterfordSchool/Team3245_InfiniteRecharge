@@ -71,10 +71,11 @@ public class Robot extends TimedRobot {
   PIDController PID = new PIDController(p, i, d);
 
   //Limit Switch
-  DigitalInput armDownSwitch = new DigitalInput(RobotMap.LIMIT_SWITCH_D_PORT);
+  /**DigitalInput armDownSwitch = new DigitalInput(RobotMap.LIMIT_SWITCH_D_PORT);
   DigitalInput armUpSwitch = new DigitalInput(RobotMap.LIMIT_SWITCH_U_PORT);
   boolean isDown = false;
   boolean isPressed = false;
+  */
 
   @Override
   public void robotInit() {
