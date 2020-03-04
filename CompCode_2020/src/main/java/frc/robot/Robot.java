@@ -162,7 +162,11 @@ public class Robot extends TimedRobot {
       intake.set(RobotMap.INTAKE_UPTAKE_SPEED);
       uptake.set(RobotMap.INTAKE_UPTAKE_SPEED);
     }
-    else if (!driver.getRawButton(RobotMap.DRIVER_INTAKE_UPTAKE_BUTTON)){
+    else if(driver.getRawButton(RobotMap.DRIVER_OUTAKE_DWTAKE_BUTTON)){
+      intake.set(-RobotMap.INTAKE_UPTAKE_SPEED);
+      uptake.set(-RobotMap.INTAKE_UPTAKE_SPEED);
+    }
+    else if (!(driver.getRawButton(RobotMap.DRIVER_INTAKE_UPTAKE_BUTTON)&&driver.getRawButton(RobotMap.DRIVER_OUTAKE_DWTAKE_BUTTON))){
       intake.set(0.0);
       uptake.set(0.0);
     }

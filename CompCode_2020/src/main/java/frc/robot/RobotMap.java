@@ -38,6 +38,7 @@ public class RobotMap {
     public static final int DRIVER_LEFT_AXIS = 1;
     public static final int DRIVER_ARM_DOWN_BUTTON = 3;
     public static final int DRIVER_ARM_UP_BUTTON = 2;
+    public static final int DRIVER_OUTAKE_DWTAKE_BUTTON = 5;
     public static final int DRIVER_INTAKE_UPTAKE_BUTTON = 6;
     public static final int DRIVER_SLOW_BUTTON = 7;
     public static final int DRIVER_FAST_BUTTON = 8;
