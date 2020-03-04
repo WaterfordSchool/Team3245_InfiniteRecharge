@@ -18,13 +18,13 @@ public class RobotMap {
     public static final int L3 = 24;
 
     //Feeder Motors
-    public static final int AGIT_MOTOR_ID = 0;
-    public static final int INDEX_MOTOR_ID = 1;
-    public static final int FLYWHEEL_MOTOR_ID = 2;
+    public static final int AGIT_MOTOR_ID = 5;
+    public static final int INDEX_MOTOR_ID = 2;
+    public static final int FLYWHEEL_MOTOR_ID = 7;
 
     //Floor Loading Motors
     public static final int ARM_MOTOR_ID = 10;
-    public static final int INTAKE_MOTOR_ID = 5;
+    public static final int INTAKE_MOTOR_ID = 9;
     public static final int UPTAKE_MOTOR_ID = 6;
 
     //Climber Motors
