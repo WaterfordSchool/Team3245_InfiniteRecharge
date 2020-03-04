@@ -58,7 +58,7 @@ public class RobotMap {
     public static final double DRIVE_FAST_SPEED = 1.0;
     public static final double DRIVE_SLOW_SPEED = 0.5;
     public static final double INDEX_SPEED = 0.8;
-    public static final double FLYWHEEL_SPEED = 0.9;
+    public static final double FLYWHEEL_SPEED = -0.9;
     public static final double ARM_SPEED = 0.7;
     public static final double INTAKE_UPTAKE_SPEED = 0.7;
     public static final double INDEX_AGIT_SPEED = -0.7;
