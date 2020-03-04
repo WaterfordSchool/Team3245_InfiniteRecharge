@@ -177,7 +177,7 @@ public class Robot extends TimedRobot {
   public void indexAgitator() {
     if(operator.getRawButton(RobotMap.OPERATOR_INDEXER_AGIT_BUTTON)){
       index.set(RobotMap.INDEX_AGIT_SPEED);
-      agitator.set(RobotMap.INDEX_AGIT_SPEED);
+      agitator.set(RobotMap.AGIT_SPEED);
     }
     else if (!operator.getRawButton(RobotMap.OPERATOR_INDEXER_AGIT_BUTTON)){
       index.set(0.0);
@@ -191,7 +191,7 @@ public class Robot extends TimedRobot {
   if(operator.getRawButton(RobotMap.OPERATOR_AGIT_BUTTON)){
     agitator.set(RobotMap.AGIT_SPEED);
   }
-  else if(!operator.getRawButton(RobotMap.OPERATOR_AGIT_BUTTON)){
+  else if(!operator.getRawButton(RobotMap.OPERATOR_AGIT_BUTTON)&&!operator.getRawButton(RobotMap.OPERATOR_INDEXER_AGIT_BUTTON)){
     agitator.set(0.0);
   }
  }
