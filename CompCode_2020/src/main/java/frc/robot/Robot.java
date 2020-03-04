@@ -123,6 +123,7 @@ public class Robot extends TimedRobot {
     deployClimber();
     speedButton();
     Agitator();
+    arm();
   }
 
   @Override
@@ -152,7 +153,9 @@ public class Robot extends TimedRobot {
       arm.set(0.0);
     }
   }
-
+  public void arm(){
+    arm.set(RobotMap.ARM_SPEED*operator.getRawAxis(RobotMap.OPERATOR_ARM_AXIS));
+  }
   //Intake Uptake methods
   public void intakeUptake() {
     if(driver.getRawButton(RobotMap.DRIVER_INTAKE_UPTAKE_BUTTON)){
