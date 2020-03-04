@@ -161,11 +161,11 @@ public class Robot extends TimedRobot {
   public void intakeUptake() {
     if(driver.getRawButton(RobotMap.DRIVER_INTAKE_UPTAKE_BUTTON)){
       intake.set(RobotMap.INTAKE_UPTAKE_SPEED);
-      uptake.set(RobotMap.INTAKE_UPTAKE_SPEED);
+      uptake.set(-RobotMap.INTAKE_UPTAKE_SPEED);
     }
     else if(driver.getRawButton(RobotMap.DRIVER_OUTAKE_DWTAKE_BUTTON)){
       intake.set(-RobotMap.INTAKE_UPTAKE_SPEED);
-      uptake.set(-RobotMap.INTAKE_UPTAKE_SPEED);
+      uptake.set(RobotMap.INTAKE_UPTAKE_SPEED);
     }
     else if (!(driver.getRawButton(RobotMap.DRIVER_INTAKE_UPTAKE_BUTTON)&&driver.getRawButton(RobotMap.DRIVER_OUTAKE_DWTAKE_BUTTON))){
       intake.set(0.0);
@@ -197,10 +197,10 @@ public class Robot extends TimedRobot {
  }
 
  public void flywheel(){
-   if(driver.getRawButton(RobotMap.OPERATOR_FLYWHEEL_BUTTON)){
+   if(operator.getRawButton(RobotMap.OPERATOR_FLYWHEEL_BUTTON)){
      flywheel.set(RobotMap.FLYWHEEL_SPEED);
    }
-   else if (!driver.getRawButton(RobotMap.OPERATOR_FLYWHEEL_BUTTON)){
+   else if (!operator.getRawButton(RobotMap.OPERATOR_FLYWHEEL_BUTTON)){
      flywheel.set(0.0);
    }
  }
