@@ -36,9 +36,6 @@ public class RobotMap {
     public static final int DRIVER_PORT = 0;
     public static final int DRIVER_RIGHT_AXIS = 2;
     public static final int DRIVER_LEFT_AXIS = 1;
-    public static final int DRIVER_ARM_AXIS=3;
-    public static final int DRIVER_ARM_DOWN_BUTTON = 3;
-    public static final int DRIVER_ARM_UP_BUTTON = 2;
     public static final int DRIVER_OUTAKE_DWTAKE_BUTTON = 5;
     public static final int DRIVER_INTAKE_UPTAKE_BUTTON = 6;
     public static final int DRIVER_SLOW_BUTTON = 7;
@@ -47,11 +44,14 @@ public class RobotMap {
     
     //Operator Controls
     public static final int OPERATOR_PORT = 1;
+    public static final int OPERATOR_ARM_AXIS=3;
     public static final int OPERATOR_INDEXER_AGIT_BUTTON = 5;
     public static final int OPERATOR_AGIT_BUTTON = 2;
     public static final int OPERATOR_FLYWHEEL_BUTTON = 6;
     public static final int OPERATOR_CLIMBER_UP_BUTTON = 4;
     public static final int OPERATOR_CLIMBER_DOWN_BUTTON = 2;
+    public static final int OPERATOR_ARM_DOWN_BUTTON = 7;
+    public static final int OPERATOR_ARM_UP_BUTTON = 8;
 
     //Speed/Misc Variables
     public static final double DRIVE_SPEED = 0.8;

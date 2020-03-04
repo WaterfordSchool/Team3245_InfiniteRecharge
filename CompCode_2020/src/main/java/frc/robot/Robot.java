@@ -143,19 +143,19 @@ public class Robot extends TimedRobot {
 
   //Arm Method
   public void armUpDown(){
-    if(driver.getRawButton(RobotMap.DRIVER_ARM_DOWN_BUTTON)){
+    if(operator.getRawButton(RobotMap.OPERATOR_ARM_DOWN_BUTTON)){
       arm.set(RobotMap.ARM_SPEED);
     }
-    if(driver.getRawButton(RobotMap.DRIVER_ARM_UP_BUTTON)){
+    if(operator.getRawButton(RobotMap.OPERATOR_ARM_UP_BUTTON)){
       arm.set(-RobotMap.ARM_SPEED);
     }
-    if(!driver.getRawButton(RobotMap.DRIVER_ARM_DOWN_BUTTON) && !driver.getRawButton(RobotMap.DRIVER_ARM_UP_BUTTON)){
+    if(!operator.getRawButton(RobotMap.OPERATOR_ARM_DOWN_BUTTON) && !operator.getRawButton(RobotMap.OPERATOR_ARM_UP_BUTTON)){
       arm.set(0.0);
     }
   }
   public void arm(){
-    if(Math.abs(operator.getRawAxis(RobotMap.DRIVER_ARM_AXIS))<0.75){
-      arm.set(RobotMap.ARM_SPEED*operator.getRawAxis(RobotMap.DRIVER_ARM_AXIS)*Math.abs(operator.getRawAxis(RobotMap.DRIVER_ARM_AXIS)));
+    if(Math.abs(operator.getRawAxis(RobotMap.OPERATOR_ARM_AXIS))<0.75){
+      arm.set(RobotMap.ARM_SPEED*operator.getRawAxis(RobotMap.OPERATOR_ARM_AXIS)*Math.abs(operator.getRawAxis(RobotMap.OPERATOR_ARM_AXIS)));
     }
   }
   //Intake Uptake methods
