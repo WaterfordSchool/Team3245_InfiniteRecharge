@@ -67,7 +67,7 @@ public class Robot extends TimedRobot {
   //Gyro
   ADXRS450_Gyro gyro = new ADXRS450_Gyro();
   double i,d = 0;
-  double p = Math.pow(0.5, 12);
+  double p = Math.pow(0.5, 9);
   PIDController PID = new PIDController(p, i, d);
 
   //Limit Switch
@@ -92,7 +92,13 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     if(timer.get()<3.0){
-      dT.arcadeDrive(0.5, 0);
+      index.set(RobotMap.INDEX_AGIT_SPEED);
+      agitator.set(RobotMap.AGIT_SPEED);
+      flywheel.set(RobotMap.FLYWHEEL_SPEED);
+    }else if(timer.get()<5.0){
+      dT.arcadeDrive(0, 0.5);
+    }else if(timer.get()<7.0){
+      dT.arcadeDrive(0.7, 0);
     }
   }
 
