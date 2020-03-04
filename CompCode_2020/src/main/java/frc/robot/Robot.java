@@ -154,7 +154,9 @@ public class Robot extends TimedRobot {
     }
   }
   public void arm(){
-    arm.set(RobotMap.ARM_SPEED*operator.getRawAxis(RobotMap.OPERATOR_ARM_AXIS));
+    if(Math.abs(driver.getRawAxis(RobotMap.DRIVER_ARM_AXIS))<0.75){
+      arm.set(RobotMap.ARM_SPEED*driver.getRawAxis(RobotMap.DRIVER_ARM_AXIS)*Math.abs(driver.getRawAxis(RobotMap.DRIVER_ARM_AXIS)));
+    }
   }
   //Intake Uptake methods
   public void intakeUptake() {
@@ -236,7 +238,7 @@ public class Robot extends TimedRobot {
   PID.setSetpoint(targetAngle);
   PID.setTolerance(3, 0.1);
   double turn = PID.calculate(gyro.getAngle());
-  if(PID.getPositionError()<3){
+  if(PID.getPositionError()>3){
     dT.tankDrive(turn, -turn);
   }else{
     dT.arcadeDrive(targetSpeed, turn);
