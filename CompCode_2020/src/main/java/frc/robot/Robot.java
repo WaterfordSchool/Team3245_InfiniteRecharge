@@ -53,6 +53,7 @@ public class Robot extends TimedRobot {
   //Climbing Motors
   WPI_TalonSRX climbLeft = new WPI_TalonSRX(RobotMap.CLIMBER_MOTOR_L);
   WPI_TalonSRX climbRight = new WPI_TalonSRX(RobotMap.CLIMBER_MOTOR_R);
+  WPI_TalonSRX climbHook = new WPI_TalonSRX(RobotMap.CLIMBER_MOTOR_M);
 
   //Joysticks
   Joystick driver = new Joystick(RobotMap.DRIVER_PORT);
@@ -223,6 +224,9 @@ public class Robot extends TimedRobot {
       climbRight.set(0);
    }
  }
+  public void hook(){
+    climbHook.set(operator.getRawAxis(RobotMap.OPERATOR_HOOK_AXIS));
+  }
 
  //Speed Button(s)
  public void speedButton(){

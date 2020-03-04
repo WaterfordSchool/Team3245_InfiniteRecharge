@@ -44,7 +44,8 @@ public class RobotMap {
     
     //Operator Controls
     public static final int OPERATOR_PORT = 1;
-    public static final int OPERATOR_ARM_AXIS=3;
+    public static final int OPERATOR_ARM_AXIS=1;
+    public static final int OPERATOR_HOOK_AXIS=3;
     public static final int OPERATOR_INDEXER_AGIT_BUTTON = 5;
     public static final int OPERATOR_AGIT_BUTTON = 7;
     public static final int OPERATOR_FLYWHEEL_BUTTON = 6;
