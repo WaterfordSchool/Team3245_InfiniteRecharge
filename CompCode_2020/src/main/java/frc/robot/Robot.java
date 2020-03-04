@@ -200,6 +200,9 @@ public class Robot extends TimedRobot {
    if(operator.getRawButton(RobotMap.OPERATOR_FLYWHEEL_BUTTON)){
      flywheel.set(RobotMap.FLYWHEEL_SPEED);
    }
+   else if(operator.getRawButton(RobotMap.OPERATOR_FLYWHEEL_SLow_BUTTON)){
+     flywheel.set(RobotMap.FLYWHEEL_SPEED*0.5);
+   }
    else if (!operator.getRawButton(RobotMap.OPERATOR_FLYWHEEL_BUTTON)){
      flywheel.set(0.0);
    }
