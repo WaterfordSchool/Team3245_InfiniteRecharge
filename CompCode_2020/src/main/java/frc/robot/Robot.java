@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 
@@ -71,6 +72,9 @@ public class Robot extends TimedRobot {
   double p = Math.pow(0.5, 9);
   PIDController PID = new PIDController(p, i, d);
 
+  //SmartDashboard
+  SmartDashboard smrt;
+
   //Limit Switch
   /**DigitalInput armDownSwitch = new DigitalInput(RobotMap.LIMIT_SWITCH_D_PORT);
   DigitalInput armUpSwitch = new DigitalInput(RobotMap.LIMIT_SWITCH_U_PORT);
@@ -93,6 +97,18 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousPeriodic() {
+    smrt.putString("1 = feeding routine; 2 = drive off line", "");
+    double autoNum = smrt.getNumber("Auto Number: ", 1);
+    if(autoNum == 1){
+      auto1();
+    }
+    else if(autoNum == 2){
+      auto2();
+    }
+  }
+
+  //Feeding auto routine
+  public void auto1(){
     if(timer.get()<3.0){
       index.set(RobotMap.INDEX_AGIT_SPEED);
       agitator.set(RobotMap.AGIT_SPEED);
@@ -102,6 +118,16 @@ public class Robot extends TimedRobot {
     }else if(timer.get()<5.0){
       dT.arcadeDrive(0.1, 0);
     
+    }
+    else if(timer.get() > 5.0){
+      dT.tankDrive(0, 0);
+    }
+  }
+
+  //Off line auto routine
+  public void auto2(){
+    if(timer.get() < 3.0){
+      dT.arcadeDrive(0.1, 0);
     }
     else if(timer.get() > 5.0){
       dT.tankDrive(0, 0);
