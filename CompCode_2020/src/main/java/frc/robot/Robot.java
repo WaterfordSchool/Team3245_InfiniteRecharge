@@ -75,7 +75,7 @@ public class Robot extends TimedRobot {
 
   //SmartDashboard
   SmartDashboard smrt;
-  SendableChooser choose = new SendableChooser();
+  SendableChooser<Integer> choose = new SendableChooser<>();
 
   //Limit Switch
   /**DigitalInput armDownSwitch = new DigitalInput(RobotMap.LIMIT_SWITCH_D_PORT);
@@ -90,8 +90,8 @@ public class Robot extends TimedRobot {
     l.setInverted(true);
     gyro.calibrate();
     choose.addOption("Auto: feed", 1);
-    choose.addOption("Auto: move", 2);
     choose.setDefaultOption("Auto: move", 2);
+    smrt.putData(choose);
   }
 
   @Override
@@ -123,7 +123,8 @@ public class Robot extends TimedRobot {
       dT.arcadeDrive(0, 0.5);
     }else if(timer.get()<5.0){
       dT.arcadeDrive(0.1, 0);
-    
+      intake.set(RobotMap.INTAKE_UPTAKE_SPEED);
+      uptake.set(-RobotMap.INTAKE_UPTAKE_SPEED);
     }
     else if(timer.get() > 5.0){
       dT.tankDrive(0, 0);
