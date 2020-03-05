@@ -100,7 +100,7 @@ public class Robot extends TimedRobot {
     }else if(timer.get()<3.4){
       dT.arcadeDrive(0, 0.5);
     }else if(timer.get()<5.0){
-      dT.arcadeDrive(0.7, 0);
+      dT.arcadeDrive(0.1, 0);
     
     }
     else if(timer.get() > 5.0){
