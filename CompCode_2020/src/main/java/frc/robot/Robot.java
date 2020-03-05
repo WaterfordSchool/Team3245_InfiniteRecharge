@@ -130,7 +130,7 @@ public class Robot extends TimedRobot {
       intake.set(RobotMap.INTAKE_UPTAKE_SPEED);
       uptake.set(-RobotMap.INTAKE_UPTAKE_SPEED);
     }
-    else if(timer.get() > 5.0+delay){
+    else if(timer.get() > 6.0+delay){
       dT.tankDrive(0, 0);
       intake.set(0);
       uptake.set(0);
