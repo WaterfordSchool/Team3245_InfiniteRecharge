@@ -122,6 +122,9 @@ public class Robot extends TimedRobot {
       flywheel.set(RobotMap.FLYWHEEL_SPEED*0.5);
     }else if(timer.get()<4+delay){
       dT.arcadeDrive(0, 0.5);
+      index.set(0);
+      agitator.set(0);
+      flywheel.set(0);
     }else if(timer.get()<5.0+delay){
       dT.arcadeDrive(0.4, 0);
       intake.set(RobotMap.INTAKE_UPTAKE_SPEED);
@@ -129,6 +132,8 @@ public class Robot extends TimedRobot {
     }
     else if(timer.get() > 5.0+delay){
       dT.tankDrive(0, 0);
+      intake.set(0);
+      uptake.set(0);
     }
   }
 
