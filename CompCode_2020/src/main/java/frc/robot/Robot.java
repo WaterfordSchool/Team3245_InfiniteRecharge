@@ -97,10 +97,14 @@ public class Robot extends TimedRobot {
       index.set(RobotMap.INDEX_AGIT_SPEED);
       agitator.set(RobotMap.AGIT_SPEED);
       flywheel.set(RobotMap.FLYWHEEL_SPEED*0.5);
-    }else if(timer.get()<3.2){
+    }else if(timer.get()<3.4){
       dT.arcadeDrive(0, 0.5);
-    }else if(timer.get()<7.0){
+    }else if(timer.get()<5.0){
       dT.arcadeDrive(0.7, 0);
+    
+    }
+    else if(timer.get() > 5.0){
+      dT.tankDrive(0, 0);
     }
   }
 
@@ -126,6 +130,7 @@ public class Robot extends TimedRobot {
     speedButton();
     Agitator();
     arm();
+    hook();
   }
 
   @Override
