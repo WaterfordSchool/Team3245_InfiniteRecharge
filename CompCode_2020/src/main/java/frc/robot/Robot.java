@@ -89,8 +89,8 @@ public class Robot extends TimedRobot {
     r.setInverted(true);
     l.setInverted(true);
     gyro.calibrate();
-    choose.addOption("Auto: feed", 1);
-    choose.setDefaultOption("Auto: move", 2);
+    choose.setDefaultOption("Auto: feed", 1);
+    choose.addOption("Auto: move", 2);
     smrt.putData(choose);
   }
 
@@ -105,38 +105,39 @@ public class Robot extends TimedRobot {
     //smrt.putString("1 = feeding routine; 2 = drive off line", "");
     //double autoNum = smrt.getNumber("Auto Number: ", 1);
     int autoNuma = (int)choose.getSelected();
+    double delay = smrt.getNumber("delay time", 0);
     if(autoNuma == 1){
-      auto1();
+      auto1(delay);
     }
     else if(autoNuma == 2){
-      auto2();
+      auto2(delay);
     }
   }
 
   //Feeding auto routine
-  public void auto1(){
-    if(timer.get()<3.0){
+  public void auto1(double delay){
+    if(timer.get()<3.0+delay){
       index.set(RobotMap.INDEX_AGIT_SPEED);
       agitator.set(RobotMap.AGIT_SPEED);
       flywheel.set(RobotMap.FLYWHEEL_SPEED*0.5);
-    }else if(timer.get()<3.4){
+    }else if(timer.get()<4+delay){
       dT.arcadeDrive(0, 0.5);
-    }else if(timer.get()<5.0){
-      dT.arcadeDrive(0.1, 0);
+    }else if(timer.get()<5.0+delay){
+      dT.arcadeDrive(0.4, 0);
       intake.set(RobotMap.INTAKE_UPTAKE_SPEED);
       uptake.set(-RobotMap.INTAKE_UPTAKE_SPEED);
     }
-    else if(timer.get() > 5.0){
+    else if(timer.get() > 5.0+delay){
       dT.tankDrive(0, 0);
     }
   }
 
   //Off line auto routine
-  public void auto2(){
-    if(timer.get() < 3.0){
-      dT.arcadeDrive(0.1, 0);
+  public void auto2(double delay){
+    if(timer.get() < 3.0+delay){
+      dT.arcadeDrive(0.4, 0);
     }
-    else if(timer.get() > 5.0){
+    else if(timer.get() > 5.0+delay){
       dT.tankDrive(0, 0);
     }
   }
