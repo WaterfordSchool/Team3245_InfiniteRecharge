@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.TimedRobot;
 
@@ -74,6 +75,7 @@ public class Robot extends TimedRobot {
 
   //SmartDashboard
   SmartDashboard smrt;
+  SendableChooser choose = new SendableChooser();
 
   //Limit Switch
   /**DigitalInput armDownSwitch = new DigitalInput(RobotMap.LIMIT_SWITCH_D_PORT);
@@ -87,6 +89,9 @@ public class Robot extends TimedRobot {
     r.setInverted(true);
     l.setInverted(true);
     gyro.calibrate();
+    choose.addOption("Auto: feed", 1);
+    choose.addOption("Auto: move", 2);
+    choose.setDefaultOption("Auto: move", 2);
   }
 
   @Override
@@ -97,12 +102,13 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousPeriodic() {
-    smrt.putString("1 = feeding routine; 2 = drive off line", "");
-    double autoNum = smrt.getNumber("Auto Number: ", 1);
-    if(autoNum == 1){
+    //smrt.putString("1 = feeding routine; 2 = drive off line", "");
+    //double autoNum = smrt.getNumber("Auto Number: ", 1);
+    int autoNuma = (int)choose.getSelected();
+    if(autoNuma == 1){
       auto1();
     }
-    else if(autoNum == 2){
+    else if(autoNuma == 2){
       auto2();
     }
   }
