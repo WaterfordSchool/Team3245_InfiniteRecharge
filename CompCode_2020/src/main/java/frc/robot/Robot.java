@@ -76,6 +76,7 @@ public class Robot extends TimedRobot {
   //SmartDashboard
   SmartDashboard smrt;
   SendableChooser<Integer> choose = new SendableChooser<>();
+  SendableChooser<Integer> side = new SendableChooser<>();
 
   //Limit Switch
   /**DigitalInput armDownSwitch = new DigitalInput(RobotMap.LIMIT_SWITCH_D_PORT);
@@ -88,9 +89,11 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     r.setInverted(true);
     l.setInverted(true);
-    gyro.calibrate();
+    side.addOption("left", -1);
+    side.addOption("right", 1);
     choose.setDefaultOption("Auto: feed", 1);
     choose.addOption("Auto: move", 2);
+    smrt.putData(side);
     smrt.putData(choose);
   }
 
@@ -120,12 +123,12 @@ public class Robot extends TimedRobot {
       index.set(RobotMap.INDEX_AGIT_SPEED);
       agitator.set(RobotMap.AGIT_SPEED);
       flywheel.set(RobotMap.FLYWHEEL_SPEED*0.5);
-    }else if(timer.get()<3.5+delay){
-      dT.arcadeDrive(0, 0.5);
+    }else if(timer.get()<3.75+delay){ //next time either 3.625 or 3.875
+      dT.arcadeDrive(0, side.getSelected()*0.5);
       index.set(0);
       agitator.set(0);
       flywheel.set(0);
-    }else if(timer.get()<5.0+delay){
+    }else if(timer.get()<7.0+delay){
       dT.arcadeDrive(0.4, 0);
       intake.set(RobotMap.INTAKE_UPTAKE_SPEED);
       uptake.set(-RobotMap.INTAKE_UPTAKE_SPEED);
@@ -134,6 +137,12 @@ public class Robot extends TimedRobot {
       dT.tankDrive(0, 0);
       intake.set(0);
       uptake.set(0);
+    }
+
+    if(timer.get()>0){
+      arm.set(RobotMap.ARM_SPEED);
+    }else if (timer.get()>1){
+      arm.set(0);
     }
   }
 
@@ -200,11 +209,7 @@ public class Robot extends TimedRobot {
     }
   }
   public void arm(){
-    if(timer.get()>120){
-    if(Math.abs(operator.getRawAxis(RobotMap.OPERATOR_ARM_AXIS))>0.5){
-      arm.set(RobotMap.ARM_SPEED*Math.pow(operator.getRawAxis(RobotMap.OPERATOR_ARM_AXIS), 3));
-    }
-  }
+    arm.set(RobotMap.ARM_SPEED*operator.getRawAxis(RobotMap.OPERATOR_ARM_AXIS));
   }
   //Intake Uptake methods
   public void intakeUptake() {
@@ -273,7 +278,12 @@ public class Robot extends TimedRobot {
    }
  }
   public void hook(){
-    climbHook.set(0.5*operator.getRawAxis(RobotMap.OPERATOR_HOOK_AXIS));
+      if(Math.abs(operator.getRawAxis(RobotMap.OPERATOR_HOOK_AXIS))>0.5){
+        climbHook.set(0.5*Math.pow(operator.getRawAxis(RobotMap.OPERATOR_HOOK_AXIS), 3));
+      }else if (Math.abs(operator.getRawAxis(RobotMap.OPERATOR_HOOK_AXIS))<0.5){
+        climbHook.set(0);
+      }
+    
   }
 
  //Speed Button(s)
