@@ -89,12 +89,13 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     r.setInverted(true);
     l.setInverted(true);
+    side.setDefaultOption("right", 1);
     side.addOption("left", -1);
-    side.addOption("right", 1);
     choose.setDefaultOption("Auto: feed", 1);
     choose.addOption("Auto: move", 2);
-    smrt.putData(side);
-    smrt.putData(choose);
+    smrt.putData("side:", side);
+    smrt.putData("Auto type:", choose);
+    smrt.putNumber("delay time", 0);
   }
 
   @Override
@@ -119,27 +120,42 @@ public class Robot extends TimedRobot {
 
   //Feeding auto routine
   public void auto1(double delay){
-    if(timer.get()<3.0+delay){
+    if(timer.get()<0.0+delay){
+      index.set(0);
+      agitator.set(0);
+      flywheel.set(0);
+      dT.arcadeDrive(0, 0);
+      intake.set(0);
+      uptake.set(0);
+    }else if(timer.get()<3.0+delay){
+      intake.set(0);
+      uptake.set(0);
       index.set(RobotMap.INDEX_AGIT_SPEED);
       agitator.set(RobotMap.AGIT_SPEED);
       flywheel.set(RobotMap.FLYWHEEL_SPEED*0.5);
-    }else if(timer.get()<3.75+delay){ //next time either 3.625 or 3.875
+    }else if(timer.get()<3.5625+delay){ //next time either 3.59375 or 3.53125
       dT.arcadeDrive(0, ((double)side.getSelected())*0.5);
       index.set(0);
       agitator.set(0);
       flywheel.set(0);
-    }else if(timer.get()<7.0+delay){
+    }else if(timer.get()<15.0){
       dT.arcadeDrive(0.4, 0);
-      intake.set(RobotMap.INTAKE_UPTAKE_SPEED);
-      uptake.set(-RobotMap.INTAKE_UPTAKE_SPEED);
+      intake.set(-RobotMap.INTAKE_UPTAKE_SPEED);
+      uptake.set(RobotMap.INTAKE_UPTAKE_SPEED);
+      index.set(RobotMap.INDEX_AGIT_SPEED);
+      agitator.set(RobotMap.AGIT_SPEED);
+      flywheel.set(RobotMap.FLYWHEEL_SPEED*0.5);
     }
     else if(timer.get() > 6.0+delay){
       dT.tankDrive(0, 0);
       intake.set(0);
       uptake.set(0);
+      index.set(0);
+      agitator.set(0);
+      flywheel.set(0);
     }
 
-    if(timer.get()>0){
+    if(timer.get()<1.75){
       arm.set(RobotMap.ARM_SPEED);
     }else if (timer.get()>1){
       arm.set(0);
@@ -148,7 +164,14 @@ public class Robot extends TimedRobot {
 
   //Off line auto routine
   public void auto2(double delay){
-    if(timer.get() < 3.0+delay){
+    if(timer.get()<0.0+delay){
+      index.set(0);
+      agitator.set(0);
+      flywheel.set(0);
+      dT.arcadeDrive(0, 0);
+      intake.set(0);
+      uptake.set(0);
+    }else if(timer.get() < 3.0+delay){
       dT.arcadeDrive(0.4, 0);
     }
     else if(timer.get() > 5.0+delay){
