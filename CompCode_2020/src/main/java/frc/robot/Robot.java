@@ -120,7 +120,7 @@ public class Robot extends TimedRobot {
       index.set(RobotMap.INDEX_AGIT_SPEED);
       agitator.set(RobotMap.AGIT_SPEED);
       flywheel.set(RobotMap.FLYWHEEL_SPEED*0.5);
-    }else if(timer.get()<4+delay){
+    }else if(timer.get()<3.5+delay){
       dT.arcadeDrive(0, 0.5);
       index.set(0);
       agitator.set(0);
@@ -200,7 +200,9 @@ public class Robot extends TimedRobot {
     }
   }
   public void arm(){
-    arm.set(RobotMap.ARM_SPEED*operator.getRawAxis(RobotMap.OPERATOR_ARM_AXIS)*Math.abs(operator.getRawAxis(RobotMap.OPERATOR_ARM_AXIS)));
+    if(Math.abs(operator.getRawAxis(RobotMap.OPERATOR_ARM_AXIS))>0.5){
+      arm.set(RobotMap.ARM_SPEED*Math.pow(operator.getRawAxis(RobotMap.OPERATOR_ARM_AXIS), 5));
+    }
   }
   //Intake Uptake methods
   public void intakeUptake() {
