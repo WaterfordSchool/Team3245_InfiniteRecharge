@@ -200,9 +200,11 @@ public class Robot extends TimedRobot {
     }
   }
   public void arm(){
+    if(timer.get()>120){
     if(Math.abs(operator.getRawAxis(RobotMap.OPERATOR_ARM_AXIS))>0.5){
       arm.set(RobotMap.ARM_SPEED*Math.pow(operator.getRawAxis(RobotMap.OPERATOR_ARM_AXIS), 3));
     }
+  }
   }
   //Intake Uptake methods
   public void intakeUptake() {
