@@ -201,7 +201,7 @@ public class Robot extends TimedRobot {
   }
   public void arm(){
     if(Math.abs(operator.getRawAxis(RobotMap.OPERATOR_ARM_AXIS))>0.5){
-      arm.set(RobotMap.ARM_SPEED*Math.pow(operator.getRawAxis(RobotMap.OPERATOR_ARM_AXIS), 5));
+      arm.set(RobotMap.ARM_SPEED*Math.pow(operator.getRawAxis(RobotMap.OPERATOR_ARM_AXIS), 3));
     }
   }
   //Intake Uptake methods
@@ -271,7 +271,7 @@ public class Robot extends TimedRobot {
    }
  }
   public void hook(){
-    climbHook.set(operator.getRawAxis(RobotMap.OPERATOR_HOOK_AXIS));
+    climbHook.set(0.5*operator.getRawAxis(RobotMap.OPERATOR_HOOK_AXIS));
   }
 
  //Speed Button(s)
