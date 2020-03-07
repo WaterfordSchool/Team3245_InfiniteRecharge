@@ -133,7 +133,7 @@ public class Robot extends TimedRobot {
       index.set(RobotMap.INDEX_AGIT_SPEED);
       agitator.set(RobotMap.AGIT_SPEED);
       flywheel.set(RobotMap.FLYWHEEL_SPEED*0.5);
-    }else if(timer.get()<3.5625+delay){ //next time either 3.59375 or 3.53125
+    }else if(timer.get()<3.59375+delay){ //next time either 3.59375 or 3.53125
       dT.arcadeDrive(0, ((double)side.getSelected())*0.5);
       index.set(0);
       agitator.set(0);
