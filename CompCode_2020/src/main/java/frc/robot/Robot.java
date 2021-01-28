@@ -91,8 +91,8 @@ public class Robot extends TimedRobot {
     l.setInverted(true);
     side.setDefaultOption("right", 1);
     side.addOption("left", -1);
-    choose.setDefaultOption("Auto: feed", 1);
-    choose.addOption("Auto: move", 2);
+    choose.setDefaultOption("Auto: move", 2);
+    choose.addOption("Auto: feed", 1);
     smrt.putData("side:", side);
     smrt.putData("Auto type:", choose);
     smrt.putNumber("delay time", 0);
@@ -172,10 +172,21 @@ public class Robot extends TimedRobot {
       intake.set(0);
       uptake.set(0);
     }else if(timer.get() < 3.0+delay){
-      dT.arcadeDrive(0.4, 0);
+      dT.arcadeDrive(-0.4, 0);
     }
     else if(timer.get() > 5.0+delay){
-      dT.tankDrive(0, 0);
+      index.set(0);
+      agitator.set(0);
+      flywheel.set(0);
+      dT.arcadeDrive(0, 0);
+      intake.set(0);
+      uptake.set(0);
+    }
+
+    if(timer.get()<1.75){
+      arm.set(RobotMap.ARM_SPEED);
+    }else if (timer.get()>1){
+      arm.set(0);
     }
   }
 
