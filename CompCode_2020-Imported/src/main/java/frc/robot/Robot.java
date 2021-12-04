@@ -6,17 +6,27 @@
 /*----------------------------------------------------------------------------*/
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.controller.PIDController;
+//camera imports:
+// import edu.wpi.first.cameraserver.CameraServer;
+// import edu.wpi.first.wpilibj.IterativeRobot;
 
+//yes there are unneccessary imports i'm scared to delete them
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+import edu.wpi.first.wpilibj.controller.PIDController;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 //import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -29,7 +39,7 @@ public class Robot extends TimedRobot {
   CANSparkMax l1 = new CANSparkMax(RobotMap.L1, MotorType.kBrushless);
   CANSparkMax l2 = new CANSparkMax(RobotMap.L2, MotorType.kBrushless);
   CANSparkMax l3 = new CANSparkMax(RobotMap.L3, MotorType.kBrushless);
-    
+  
   //Right Drive Motors
   CANSparkMax r1 = new CANSparkMax(RobotMap.R1, MotorType.kBrushless);
   CANSparkMax r2 = new CANSparkMax(RobotMap.R2, MotorType.kBrushless);
@@ -58,8 +68,8 @@ public class Robot extends TimedRobot {
   WPI_TalonSRX climbHook = new WPI_TalonSRX(RobotMap.CLIMBER_MOTOR_M);
 
   //Joysticks
-  Joystick driver = new Joystick(RobotMap.DRIVER_PORT);
-  Joystick operator = new Joystick(RobotMap.OPERATOR_PORT);
+  XboxController driver = new XboxController(RobotMap.DRIVER_PORT);
+  XboxController operator = new XboxController(RobotMap.OPERATOR_PORT);
 
   //Timer
   Timer timer = new Timer();
@@ -78,6 +88,18 @@ public class Robot extends TimedRobot {
   SendableChooser<Integer> choose = new SendableChooser<>();
   SendableChooser<Integer> side = new SendableChooser<>();
 
+  //leds
+  Spark led = new Spark(9);
+
+  //spinny motor
+  WPI_TalonSRX spinny = new WPI_TalonSRX(8);
+
+  //new neo
+  //CANSparkMax shoot = new CANSparkMax(RobotMap.SHOOTER_MOTOR_ID, MotorType.kBrushless);
+  
+  
+
+  
   //Limit Switch
   /**DigitalInput armDownSwitch = new DigitalInput(RobotMap.LIMIT_SWITCH_D_PORT);
   DigitalInput armUpSwitch = new DigitalInput(RobotMap.LIMIT_SWITCH_U_PORT);
@@ -87,6 +109,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
+    //dont activate until ready
+    //CameraServer.getInstance().startAutomaticCapture();
     r.setInverted(true);
     l.setInverted(true);
     side.setDefaultOption("right", 1);
@@ -171,10 +195,10 @@ public class Robot extends TimedRobot {
       dT.arcadeDrive(0, 0);
       intake.set(0);
       uptake.set(0);
-    }else if(timer.get() < 3.0+delay){
+    }else if(timer.get() < 5.0+delay){
       dT.arcadeDrive(-0.4, 0);
     }
-    else if(timer.get() > 5.0+delay){
+    else if(timer.get() > 6.0+delay){
       index.set(0);
       agitator.set(0);
       flywheel.set(0);
@@ -203,17 +227,79 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     currentTime = Timer.getFPGATimestamp();
-    dT.arcadeDrive(driver.getRawAxis(RobotMap.DRIVER_LEFT_AXIS) * RobotMap.DRIVE_SPEED, -driver.getRawAxis(RobotMap.DRIVER_RIGHT_AXIS) * RobotMap.DRIVE_SPEED);
-    armUpDown();
+    
+    //Haptic Feedback test code use xbox controller
+    //driver.setRumble(RumbleType.kRightRumble, 1);
+    //driver.setRumble(RumbleType.kLeftRumble, 1);
+    
+    //Regular Matt drive with logitech controller
+    //dT.arcadeDrive(driver.getRawAxis(RobotMap.DRIVER_LEFT_AXIS) * RobotMap.DRIVE_SPEED, -driver.getRawAxis(RobotMap.DRIVER_RIGHT_AXIS) * RobotMap.DRIVE_SPEED);
+    
+    //Trigger Drive
+    //dT.arcadeDrive(-driver.getRawAxis(2), -driver.getRawAxis(0)); //backwards
+    //dT.arcadeDrive(driver.getRawAxis(3), -driver.getRawAxis(0)); //forwards
+
+    //Xbox Standard Matt Drive
+    //dT.arcadeDrive(driver.getRawAxis(1), -driver.getRawAxis(4));
+
+    dT.arcadeDrive(-driver.getRawAxis(3) * 0.8, -driver.getRawAxis(0) * 0.8);
+    if(driver.getRawAxis(2) > 0){
+      dT.arcadeDrive(driver.getRawAxis(2) * 0.8, -driver.getRawAxis(0) * 0.8);
+    }
+    //dT.arcadeDrive(driver.getRawAxis(2), -driver.getRawAxis(0));
+    
+    System.out.println(driver.getRawAxis(2));
+
+    /*
+    for referencing triggers on xbox controller pass enumerator value kleft or kright
+    if(test.getTriggerAxis(Hand.kRight) > -1){
+      dT.arcadeDrive(test.getTriggerAxis(Hand.kRight), test.getX(Hand.kLeft));
+    }
+    if(test.getTriggerAxis(Hand.kLeft) > -1){
+      dT.arcadeDrive(test.getTriggerAxis(Hand.kLeft), test.getX(Hand.kLeft)); //writing backwards trigger code for driving 
+    }
+    */
+
+    //armUpDown();
     intakeUptake();
     indexAgitator();
     flywheel();
     deployClimber();
-    speedButton();
-    Agitator();
+    //speedButton();
+    //Agitator();
     arm();
-    hook();
+    //hook();
+    indexer2();
+    speedButton2();
+    //shoot();
+
+    //leds--did not work at Idaho and kind of broke
+    if(driver.getPOV() == 0){
+      //up red
+      led.set(0.61);
+    }
+    if(driver.getPOV() == 180){
+      //down blue
+      led.set(0.87);
+    }
+    if(driver.getPOV() == 90){
+      //right "twinkles ocean palette"
+      led.set(-0.51);
+    }
+    if(driver.getPOV() == 270){
+      //left "twinkles lava palette"
+      led.set(-0.49);
+    }
+    //spinny thing
+    if(driver.getRawButton(4)){
+      spinny.set(1);
+    }
+    if(!driver.getRawButton(4)){
+      spinny.set(0);
+    }
   }
+
+
 
   @Override
   public void testInit() {
@@ -242,9 +328,31 @@ public class Robot extends TimedRobot {
       arm.set(0.0);
     }
   }
+
+  /*public void shoot(){
+    if(operator.getRawButton(RobotMap.OPERATOR_SHOOT_BUTTON)){
+      shoot.set(RobotMap.SHOOT_SPEED);
+    }
+    if(!operator.getRawButton(RobotMap.OPERATOR_SHOOT_BUTTON)){
+      shoot.set(0.0);
+    }
+  }*/
+
+  //Working Arm Method
   public void arm(){
     arm.set(RobotMap.ARM_SPEED*operator.getRawAxis(RobotMap.OPERATOR_ARM_AXIS));
   }
+
+  //Indexer on Joystick
+  public void indexer2(){
+    if(operator.getRawButton(RobotMap.OPERATOR_INDEXER_JOYSTICK)){
+      index.set(RobotMap.ARM_SPEED * 1.0);    }
+    else if(!operator.getRawButton(RobotMap.OPERATOR_INDEXER_JOYSTICK)){
+      index.set(RobotMap.ARM_SPEED * 0.0);
+    }
+    
+  }
+
   //Intake Uptake methods
   public void intakeUptake() {
     if(driver.getRawButton(RobotMap.DRIVER_INTAKE_UPTAKE_BUTTON)){
@@ -261,7 +369,6 @@ public class Robot extends TimedRobot {
     }
   }
 
-  //Feeder Methods
   public void indexAgitator() {
     if(operator.getRawButton(RobotMap.OPERATOR_INDEXER_AGIT_BUTTON)){
       index.set(RobotMap.INDEX_AGIT_SPEED);
@@ -273,6 +380,11 @@ public class Robot extends TimedRobot {
 
     }
  }
+
+ //indexer method
+  /*public void indexerMethod() {
+    index.set(RobotMap.INDEX_AGIT_SPEED*operator.getRawAxis(RobotMap.OPERATOR_INDEXER_BUTTON));
+  }*/
 
  //Agitator Only
  public void Agitator (){
@@ -297,6 +409,7 @@ public class Robot extends TimedRobot {
  }
 
  //Climber Methods
+ //proceed w caution bc might mess up motors :)
  public void deployClimber() {
    if(operator.getRawButton(RobotMap.OPERATOR_CLIMBER_UP_BUTTON)){
       climbLeft.set(RobotMap.CLIMB_SPEED);
@@ -320,8 +433,8 @@ public class Robot extends TimedRobot {
     
   }
 
- //Speed Button(s)
- public void speedButton(){
+ //Speed Button(s) with Matt Drive
+/* public void speedButton(){
    if(driver.getRawButton(RobotMap.DRIVER_FAST_BUTTON)){
     dT.arcadeDrive(driver.getRawAxis(RobotMap.DRIVER_LEFT_AXIS)*RobotMap.DRIVE_FAST_SPEED, -driver.getRawAxis(RobotMap.DRIVER_RIGHT_AXIS)*RobotMap.DRIVE_FAST_SPEED);
    }else if(driver.getRawButton(RobotMap.DRIVER_SLOW_BUTTON)){
@@ -329,6 +442,36 @@ public class Robot extends TimedRobot {
    }else if (!driver.getRawButton(RobotMap.DRIVER_SLOW_BUTTON)||!driver.getRawButton(RobotMap.DRIVER_FAST_BUTTON)){
     dT.arcadeDrive(driver.getRawAxis(RobotMap.DRIVER_LEFT_AXIS) * RobotMap.DRIVE_SPEED, -driver.getRawAxis(RobotMap.DRIVER_RIGHT_AXIS) * RobotMap.DRIVE_SPEED);
    }
+ }
+*/
+ //New Speed Buttons for Game Drive (xbox controller)
+ public void speedButton2(){ //1 for fast
+  
+    //slow button for xbox controller
+   if(driver.getRawButton(3)){
+      dT.arcadeDrive(-driver.getRawAxis(3) * 0.2, -driver.getRawAxis(0) * 0.2);
+    if(driver.getRawAxis(2) > 0){
+      dT.arcadeDrive(driver.getRawAxis(2) * 0.2, -driver.getRawAxis(0) * 0.2);
+    }
+   }
+
+   //fast button for xbox controller
+   else if(driver.getRawButton(1)){
+    dT.arcadeDrive(-driver.getRawAxis(3), -driver.getRawAxis(0));
+      if(driver.getRawAxis(2) > 0){
+        dT.arcadeDrive(driver.getRawAxis(2), -driver.getRawAxis(0));
+    }
+   }
+   
+
+   //default condition for neither buttons active
+   else if(!driver.getRawButton(3) || !driver.getRawButton(1)){
+    dT.arcadeDrive(-driver.getRawAxis(3) * 0.8, -driver.getRawAxis(0) * 0.8);
+    if(driver.getRawAxis(2) > 0){
+      dT.arcadeDrive(driver.getRawAxis(2) * 0.8, -driver.getRawAxis(0) * 0.8);
+    }
+   }
+
  }
 
  //Gyro method
@@ -341,8 +484,5 @@ public class Robot extends TimedRobot {
   }else{
     dT.arcadeDrive(targetSpeed, turn);
   }
-  }
-
-
-
+  } 
  }

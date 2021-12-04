@@ -22,15 +22,20 @@ public class RobotMap {
     public static final int INDEX_MOTOR_ID = 2;
     public static final int FLYWHEEL_MOTOR_ID = 7;
 
+    //shooter motor
+    //public static final int SHOOTER_MOTOR_ID = ?;
+
     //Floor Loading Motors
     public static final int ARM_MOTOR_ID = 10;
     public static final int INTAKE_MOTOR_ID = 9;
+    //^from 9 and from 3 switched back to 9 9/16/21
     public static final int UPTAKE_MOTOR_ID = 6;
 
     //Climber Motors
     public static final int CLIMBER_MOTOR_L = 3; //winch thing
-    public static final int CLIMBER_MOTOR_R = 4; //winch thing 2
-    public static final int CLIMBER_MOTOR_M = 8; //hook  thing
+    //^from 3 then 9 switched back to 3 9/16
+    public static final int CLIMBER_MOTOR_R = 4; //winch thing 2 that was four
+    public static final int CLIMBER_MOTOR_M = 8; //hook  thing that's now spinny thing
 
     //Driver Controls
     public static final int DRIVER_PORT = 0;
@@ -47,13 +52,19 @@ public class RobotMap {
     public static final int OPERATOR_ARM_AXIS=1;
     public static final int OPERATOR_HOOK_AXIS=3;
     public static final int OPERATOR_INDEXER_AGIT_BUTTON = 5;
+    public static final int OPERATOR_SHOOT_BUTTON = 5;
     public static final int OPERATOR_AGIT_BUTTON = 7;
+    //5 and 7 switched
+    
     public static final int OPERATOR_FLYWHEEL_BUTTON = 6;
-    public static final int OPERATOR_FLYWHEEL_SLow_BUTTON = 8;
+    //
+    public static final int OPERATOR_FLYWHEEL_SLow_BUTTON = 5;
     public static final int OPERATOR_CLIMBER_UP_BUTTON = 4;
     public static final int OPERATOR_CLIMBER_DOWN_BUTTON = 2;
     public static final int OPERATOR_ARM_DOWN_BUTTON = 7;
     public static final int OPERATOR_ARM_UP_BUTTON = 8;
+    public static final int OPERATOR_INDEXER_JOYSTICK = 3;
+    //
 
     //Speed/Misc Variables
     public static final double DRIVE_SPEED = 0.8;
@@ -66,6 +77,7 @@ public class RobotMap {
     public static final double INDEX_AGIT_SPEED = -0.7;
     public static final double AGIT_SPEED = 0.7;
     public static final double CLIMB_SPEED = 0.6;
+    public static final double SHOOT_SPEED = 1.0;
     public static final double RAMP_VAL = 0.1;
     public static final int LIMIT_SWITCH_D_PORT = 0;
     public static final int LIMIT_SWITCH_U_PORT = 1;
