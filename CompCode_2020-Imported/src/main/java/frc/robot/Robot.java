@@ -95,7 +95,7 @@ public class Robot extends TimedRobot {
   WPI_TalonSRX spinny = new WPI_TalonSRX(8);
 
   //new neo
-  //CANSparkMax shoot = new CANSparkMax(RobotMap.SHOOTER_MOTOR_ID, MotorType.kBrushless);
+  CANSparkMax shoot = new CANSparkMax(RobotMap.SHOOTER_MOTOR_ID, MotorType.kBrushless);
   
   
 
@@ -264,14 +264,17 @@ public class Robot extends TimedRobot {
     intakeUptake();
     indexAgitator();
     flywheel();
-    deployClimber();
+    indexerImproved();
+    //deployClimber();
     //speedButton();
-    //Agitator();
+   // Agitator();
+   agitatorDifferent();
+   //CHECK THIS ^
     arm();
     //hook();
-    indexer2();
+    //indexer2();
     speedButton2();
-    //shoot();
+    shoot();
 
     //leds--did not work at Idaho and kind of broke
     if(driver.getPOV() == 0){
@@ -329,14 +332,14 @@ public class Robot extends TimedRobot {
     }
   }
 
-  /*public void shoot(){
-    if(operator.getRawButton(RobotMap.OPERATOR_SHOOT_BUTTON)){
+  public void shoot(){
+    if(driver.getRawButton(RobotMap.DRIVER_SHOOT_BUTTON)){
       shoot.set(RobotMap.SHOOT_SPEED);
     }
-    if(!operator.getRawButton(RobotMap.OPERATOR_SHOOT_BUTTON)){
+    if(!driver.getRawButton(RobotMap.DRIVER_SHOOT_BUTTON)){
       shoot.set(0.0);
     }
-  }*/
+  }
 
   //Working Arm Method
   public void arm(){
@@ -345,9 +348,9 @@ public class Robot extends TimedRobot {
 
   //Indexer on Joystick
   public void indexer2(){
-    if(operator.getRawButton(RobotMap.OPERATOR_INDEXER_JOYSTICK)){
+    if(driver.getRawButton(RobotMap.OPERATOR_INDEXER_JOYSTICK)){
       index.set(RobotMap.ARM_SPEED * 1.0);    }
-    else if(!operator.getRawButton(RobotMap.OPERATOR_INDEXER_JOYSTICK)){
+    else if(!driver.getRawButton(RobotMap.OPERATOR_INDEXER_JOYSTICK)){
       index.set(RobotMap.ARM_SPEED * 0.0);
     }
     
@@ -370,11 +373,11 @@ public class Robot extends TimedRobot {
   }
 
   public void indexAgitator() {
-    if(operator.getRawButton(RobotMap.OPERATOR_INDEXER_AGIT_BUTTON)){
+    if(driver.getRawButton(RobotMap.DRIVER_INDEXER_AGIT_BUTTON)){
       index.set(RobotMap.INDEX_AGIT_SPEED);
       agitator.set(RobotMap.AGIT_SPEED);
     }
-    else if (!operator.getRawButton(RobotMap.OPERATOR_INDEXER_AGIT_BUTTON)){
+    else if (!driver.getRawButton(RobotMap.DRIVER_INDEXER_AGIT_BUTTON)){
       index.set(0.0);
       agitator.set(0.0);
 
@@ -387,6 +390,16 @@ public class Robot extends TimedRobot {
   }*/
 
  //Agitator Only
+public void agitatorDifferent(){
+  if(driver.getRawButton(4)){
+    climbLeft.set(RobotMap.AGIT_SPEED);
+    //left climber = agitator??
+  }
+  if(!driver.getRawButton(4)){
+    climbLeft.set(0.0);
+  }
+}
+
  public void Agitator (){
   if(operator.getRawButton(RobotMap.OPERATOR_AGIT_BUTTON)){
     agitator.set(RobotMap.AGIT_SPEED);
@@ -397,14 +410,24 @@ public class Robot extends TimedRobot {
  }
 
  public void flywheel(){
-   if(operator.getRawButton(RobotMap.OPERATOR_FLYWHEEL_BUTTON)){
+   //CHANGED COME BACK TO
+   if(driver.getRawButton(4)){
      flywheel.set(RobotMap.FLYWHEEL_SPEED);
    }
-   else if(operator.getRawButton(RobotMap.OPERATOR_FLYWHEEL_SLow_BUTTON)){
+   else if(driver.getRawButton(RobotMap.OPERATOR_FLYWHEEL_SLow_BUTTON)){
      flywheel.set(RobotMap.FLYWHEEL_SPEED*0.5);
    }
-   else if (!operator.getRawButton(RobotMap.OPERATOR_FLYWHEEL_BUTTON)){
+   else if (!driver.getRawButton(4)){
      flywheel.set(0.0);
+   }
+ }
+
+ public void indexerImproved(){
+   if(driver.getRawButton(4)){
+     climbRight.set(RobotMap.INDEX_SPEED);
+   }
+   if(driver.getRawButton(4)){
+    climbRight.set(0.0);
    }
  }
 

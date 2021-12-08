@@ -18,12 +18,13 @@ public class RobotMap {
     public static final int L3 = 24;
 
     //Feeder Motors
-    public static final int AGIT_MOTOR_ID = 5;
+    public static final int AGIT_MOTOR_ID = 7;
+    //^switched from 5
     public static final int INDEX_MOTOR_ID = 2;
     public static final int FLYWHEEL_MOTOR_ID = 7;
 
     //shooter motor
-    //public static final int SHOOTER_MOTOR_ID = ?;
+    public static final int SHOOTER_MOTOR_ID = 46;
 
     //Floor Loading Motors
     public static final int ARM_MOTOR_ID = 10;
@@ -45,18 +46,23 @@ public class RobotMap {
     public static final int DRIVER_INTAKE_UPTAKE_BUTTON = 5;
     public static final int DRIVER_SLOW_BUTTON = 2;
     public static final int DRIVER_FAST_BUTTON = 8;
-    public static final int DRIVER_INDEXER_AGIT_BUTTON = 12;
+    public static final int DRIVER_INDEXER_AGIT_BUTTON = 4;
+    //^switched from 12
+    public static final int DRIVER_SHOOT_BUTTON = 2;
+
     
     //Operator Controls
     public static final int OPERATOR_PORT = 1;
     public static final int OPERATOR_ARM_AXIS=1;
     public static final int OPERATOR_HOOK_AXIS=3;
     public static final int OPERATOR_INDEXER_AGIT_BUTTON = 5;
-    public static final int OPERATOR_SHOOT_BUTTON = 5;
-    public static final int OPERATOR_AGIT_BUTTON = 7;
+    //^switched from 5, given to driver
+    public static final int OPERATOR_AGIT_BUTTON = 4;
+    //^switched from 7
     //5 and 7 switched
     
     public static final int OPERATOR_FLYWHEEL_BUTTON = 6;
+    
     //
     public static final int OPERATOR_FLYWHEEL_SLow_BUTTON = 5;
     public static final int OPERATOR_CLIMBER_UP_BUTTON = 4;
@@ -77,7 +83,7 @@ public class RobotMap {
     public static final double INDEX_AGIT_SPEED = -0.7;
     public static final double AGIT_SPEED = 0.7;
     public static final double CLIMB_SPEED = 0.6;
-    public static final double SHOOT_SPEED = 1.0;
+    public static final double SHOOT_SPEED = 0.8;
     public static final double RAMP_VAL = 0.1;
     public static final int LIMIT_SWITCH_D_PORT = 0;
     public static final int LIMIT_SWITCH_U_PORT = 1;

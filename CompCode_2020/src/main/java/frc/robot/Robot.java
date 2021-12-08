@@ -203,7 +203,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     currentTime = Timer.getFPGATimestamp();
-    dT.arcadeDrive(driver.getRawAxis(RobotMap.DRIVER_LEFT_AXIS) * RobotMap.DRIVE_SPEED, -driver.getRawAxis(RobotMap.DRIVER_RIGHT_AXIS) * RobotMap.DRIVE_SPEED);
+
     //armUpDown();
     intakeUptake();
     indexAgitator();
@@ -242,12 +242,9 @@ public class Robot extends TimedRobot {
       arm.set(0.0);
     }
   }
-
-  //Current Arm Method
   public void arm(){
     arm.set(RobotMap.ARM_SPEED*operator.getRawAxis(RobotMap.OPERATOR_ARM_AXIS));
   }
-
   //Intake Uptake methods
   public void intakeUptake() {
     if(driver.getRawButton(RobotMap.DRIVER_INTAKE_UPTAKE_BUTTON)){
@@ -276,11 +273,6 @@ public class Robot extends TimedRobot {
 
     }
  }
-
- //indexer method
-  public void indexerMethod() {
-    index.set(RobotMap.INDEX_AGIT_SPEED*operator.getRawAxis(RobotMap.OPERATOR_INDEXER_BUTTON));
-  }
 
  //Agitator Only
  public void Agitator (){
