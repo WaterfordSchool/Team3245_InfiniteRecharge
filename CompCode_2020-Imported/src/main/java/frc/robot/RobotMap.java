@@ -33,10 +33,14 @@ public class RobotMap {
     public static final int UPTAKE_MOTOR_ID = 6;
 
     //Climber Motors
-    public static final int CLIMBER_MOTOR_L = 3; //winch thing
+    public static final int CLIMBER_MOTOR_L = 3; //not climber, agitator
     //^from 3 then 9 switched back to 3 9/16
     public static final int CLIMBER_MOTOR_R = 4; //winch thing 2 that was four
     public static final int CLIMBER_MOTOR_M = 8; //hook  thing that's now spinny thing
+    //Warren #1, go to Phoenix Tuner and click on each motor, then blink each until you see the motor controller's lights blinking
+    //Look at the motor control ID
+    //input into value below
+    public static final int SPINNY_MOTOR_ID = 8; //same as climbermotorm, but repeated for convenience; disregard
 
     //Driver Controls
     public static final int DRIVER_PORT = 0;
@@ -83,7 +87,9 @@ public class RobotMap {
     public static final double INDEX_AGIT_SPEED = -0.7;
     public static final double AGIT_SPEED = 0.7;
     public static final double CLIMB_SPEED = 0.6;
-    public static final double SHOOT_SPEED = 0.8;
+    //Warren--to change shooting speed, change the value below
+    public static final double SHOOT_SPEED = 0.5;
+
     public static final double RAMP_VAL = 0.1;
     public static final int LIMIT_SWITCH_D_PORT = 0;
     public static final int LIMIT_SWITCH_U_PORT = 1;

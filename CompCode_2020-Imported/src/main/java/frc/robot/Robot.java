@@ -11,6 +11,7 @@ package frc.robot;
 // import edu.wpi.first.wpilibj.IterativeRobot;
 
 //yes there are unneccessary imports i'm scared to delete them
+//it's ok everything is ok
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
@@ -92,7 +93,7 @@ public class Robot extends TimedRobot {
   Spark led = new Spark(9);
 
   //spinny motor
-  WPI_TalonSRX spinny = new WPI_TalonSRX(8);
+  WPI_TalonSRX spinny = new WPI_TalonSRX(RobotMap.SPINNY_MOTOR_ID);
 
   //new neo
   CANSparkMax shoot = new CANSparkMax(RobotMap.SHOOTER_MOTOR_ID, MotorType.kBrushless);
@@ -181,7 +182,8 @@ public class Robot extends TimedRobot {
 
     if(timer.get()<1.75){
       arm.set(RobotMap.ARM_SPEED);
-    }else if (timer.get()>1){
+    }
+    else if (timer.get()>1){
       arm.set(0);
     }
   }
@@ -195,8 +197,10 @@ public class Robot extends TimedRobot {
       dT.arcadeDrive(0, 0);
       intake.set(0);
       uptake.set(0);
-    }else if(timer.get() < 5.0+delay){
-      dT.arcadeDrive(-0.4, 0);
+    }else if(timer.get() < 2.0+delay){
+      //^originally 5.0
+      dT.arcadeDrive(0.4, 0);
+      //^originally -0.4
     }
     else if(timer.get() > 6.0+delay){
       index.set(0);
@@ -268,39 +272,18 @@ public class Robot extends TimedRobot {
     //deployClimber();
     //speedButton();
    // Agitator();
-   agitatorDifferent();
-   //CHECK THIS ^
+   agitatorImproved();
+   //^works??
     arm();
     //hook();
     //indexer2();
     speedButton2();
     shoot();
-
-    //leds--did not work at Idaho and kind of broke
-    if(driver.getPOV() == 0){
-      //up red
-      led.set(0.61);
-    }
-    if(driver.getPOV() == 180){
-      //down blue
-      led.set(0.87);
-    }
-    if(driver.getPOV() == 90){
-      //right "twinkles ocean palette"
-      led.set(-0.51);
-    }
-    if(driver.getPOV() == 270){
-      //left "twinkles lava palette"
-      led.set(-0.49);
-    }
-    //spinny thing
-    if(driver.getRawButton(4)){
-      spinny.set(1);
-    }
-    if(!driver.getRawButton(4)){
-      spinny.set(0);
-    }
+    spinnyThing();
+    //leds();
   }
+
+ 
 
 
 
@@ -390,7 +373,7 @@ public class Robot extends TimedRobot {
   }*/
 
  //Agitator Only
-public void agitatorDifferent(){
+public void agitatorImproved(){
   if(driver.getRawButton(4)){
     climbLeft.set(RobotMap.AGIT_SPEED);
     //left climber = agitator??
@@ -431,6 +414,44 @@ public void agitatorDifferent(){
    }
  }
 
+ public void spinnyThing(){
+   //Warren--to change button to make the bird spin, insert button values where 4 and 3 are
+   //the button values start at 1 and increase in Driver Station
+   //if you want to test it with driver instead of operator, replace "operator" with "driver"--it's not that hard
+  if(operator.getRawButton(4)){
+    //forward
+    spinny.set(1);
+  }
+  if(operator.getRawButton(3)){
+    //backward
+    spinny.set(-1);
+  }
+  if(!operator.getRawButton(4)&& !operator.getRawButton(3)){
+    //off
+    spinny.set(0.0);
+  }
+}
+
+public void leds(){
+  //...broken
+  if(driver.getPOV() == 0){
+    //up red
+    //led.set(0.61);
+    led.set(-0.85);
+  }
+  if(driver.getPOV() == 180){
+    //down blue
+    led.set(0.87);
+  }
+  if(driver.getPOV() == 90){
+    //right "twinkles ocean palette"
+    led.set(-0.51);
+  }
+  if(driver.getPOV() == 270){
+    //left "twinkles lava palette"
+    led.set(-0.49);
+  }
+} 
  //Climber Methods
  //proceed w caution bc might mess up motors :)
  public void deployClimber() {
